@@ -48,6 +48,7 @@ group :development, :test do
   gem "twitter-bootstrap-rails"
   gem "font-awesome-rails"
   gem "gritter"
+  gem 'roo'
 
 end
 

@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @loan.user_id
+%p
+  %b Item:
+  = @loan.item_id
+%p
+  %b Due date:
+  = @loan.due_date
+
+= link_to 'Edit', edit_loan_path(@loan)
+\|
+= link_to 'Back', loans_path

@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :locations
+
+  resources :loans
+
+  resources :users
+
+  resources :categories
+
   resources :items
 
   # The priority is based upon order of creation: first created -> highest priority.

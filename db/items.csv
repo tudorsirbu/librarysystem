@@ -1,4 +1,4 @@
-id,isbn,title,author,publisher,year,month,day,,,,que,category_id
+id,isbn,title,author,publisher,year,month,day,details,,,que,category_id
 93,"9781908614377","Reading","John Slaght.","Garnet Education",2012,11,11,,,,"QUEUE1",36
 94,"9780521476584","Academic encounters : reading, study skills, and writing : content focus, human behavior","Bernard Seal.","Cambridge University Press",2002,3,3,,,,"QUEUE1",36
 95,"9780131588677","From reading to writing.","Colin Ward ; series editor, Linda Robinson Fellag.","Pearson Longman",2010,2,2,,,,"QUEUE1",36

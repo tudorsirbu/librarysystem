@@ -14,7 +14,7 @@
       %tr
         %td= item.title
         %td= item.isbn
-        %td= item.category_id
+        %td= Category.find(item.category_id).name.humanize
         %td= item.publisher
         %td= item.year
         %td= link_to 'Show', item, { :class=>"btn btn-primary btn-sm" }

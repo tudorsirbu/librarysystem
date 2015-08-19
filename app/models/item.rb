@@ -25,11 +25,4 @@ class Item < ActiveRecord::Base
     end
 
   end
-
-  def self.open_spreadsheet(file)
-    case File.extname("items.csv")
-      when ".csv" then Csv.new(file, nil, :ignore)
-      else raise "Unknown file type:items.csv"
-    end
-  end
 end

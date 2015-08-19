@@ -1,6 +1,6 @@
 %p#notice= notice
 %h1 Listing Categories
-%table
+%table.table.table-striped
   %thead
     %tr
       %th Name
@@ -9,8 +9,8 @@
     - @categories.each do |category|
       %tr
         %td= category.name
-        %td= link_to 'Show', category
-        %td= link_to 'Edit', edit_category_path(category)
-        %td= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', category,{ :class=>"btn btn-primary btn-sm" }
+        %td= link_to 'Edit', edit_category_path(category),{ :class=>"btn btn-success btn-sm" }
+        %td= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-danger btn-sm"
 %br/
 = link_to 'New Category', new_category_path

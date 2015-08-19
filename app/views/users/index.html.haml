@@ -1,6 +1,6 @@
 %p#notice= notice
 %h1 Listing Users
-%table
+%table.table.table-striped
   %thead
     %tr
       %th Ucard no
@@ -15,8 +15,8 @@
         %td= user.surname
         %td= user.forename
         %td= user.job_title
-        %td= link_to 'Show', user
-        %td= link_to 'Edit', edit_user_path(user)
-        %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', user, { :class=>"btn btn-primary btn-sm" }
+        %td= link_to 'Edit', edit_user_path(user), { :class=>"btn btn-success btn-sm" }
+        %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-danger btn-sm"
 %br/
 = link_to 'New User', new_user_path

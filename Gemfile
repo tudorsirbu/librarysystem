@@ -49,6 +49,7 @@ group :development, :test do
   gem "font-awesome-rails"
   gem "gritter"
   gem 'roo'
+  gem 'json'
 
 end
 

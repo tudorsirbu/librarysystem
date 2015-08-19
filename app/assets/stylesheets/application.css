@@ -12,4 +12,11 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap.min
  */
+
+a:visited {
+    text-decoration: none !important;
+    decoration: none !important;
+    color: white !important;
+}

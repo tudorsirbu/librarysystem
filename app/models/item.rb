@@ -1,23 +1,29 @@
 require 'csv'
 class Item < ActiveRecord::Base
   def self.import
-    file = Rails.root.join('db').join('items.csv')
+    items = Rails.root.join('db').join('items.csv')
+    barcodes = Rails.root.join('db').join('barcodes.csv')
 
-    CSV.foreach(file, :headers => true) do |row|
+    CSV.foreach(items, :headers => true) do |row_item|
+      barcode = nil
+      CSV.foreach(barcodes,:headers => true) do |row_barcode|
+        if row_item["id"] == row_barcode["item_id"]
+          barcode = row_barcode["barcode"]
+          break
+        end
+      end
 
       item = Item.new
-      item.title = row["title"]
-      item.isbn = row["isbn"]
-      return item
+      item.title = row_item["title"]
+      item.isbn = row_item["isbn"]
+      item.category_id = row_item["category_id"]
+      item.publisher = row_item["publisher"]
+      item.year = row_item["year"]
+      item.barcode = barcode
+      item.location_id = 1
+      item.save
     end
-    # header = spreadsheet.row(1)
-    # (2..spreadsheet.last_row).each do |i|
-    #   # row = Hash[[header, spreadsheet.row(i)].transpose]
-    #   # product = find_by_id(row["id"]) || new
-    #   # product.attributes = row.to_hash.slice(*accessible_attributes)
-    #   # product.save!
-    #   puts spreadsheet.row(i).inspect
-    # end
+
   end
 
   def self.open_spreadsheet(file)

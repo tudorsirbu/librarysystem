@@ -20,12 +20,7 @@ class Item < ActiveRecord::Base
       else
         item.isbn = row_item["isbn"]
       end
-      if row_item["category_id"] == 0
-        item.category_id = 1
-      else
-        item.category_id = row_item["category_id"]
-      end
-
+      item.category_id = row_item["category_id"]
       item.publisher = row_item["publisher"]
       item.year = row_item["year"]
       item.barcode = barcode

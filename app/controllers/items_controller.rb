@@ -4,7 +4,8 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
+    @search = Item.ransack(params[:q])
+    @items  = @search.result.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /items/1

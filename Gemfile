@@ -33,6 +33,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+gem 'simple_form'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -51,4 +55,4 @@ gem "font-awesome-rails"
 gem "gritter"
 gem 'roo'
 gem 'json'
-
+gem 'ransack'

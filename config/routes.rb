@@ -10,5 +10,5 @@ Rails.application.routes.draw do
 
   resources :items
 
-  root to: "items#index"
+  root to: "dashboard#index"
 end

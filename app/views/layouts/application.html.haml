@@ -22,14 +22,15 @@
           %ul.nav.navbar-nav
             %li
               %a{:href => root_path}
-                Home
+                =fa_icon('home', text: "Home")
                 %span.sr-only (current)
-            %li
-              %a{:href => items_path}=fa_icon('book', text: "Items")
-            %li
-              %a{:href => categories_path}=fa_icon('clipboard', text: "Categories")
-            %li
-              %a{:href => users_path}=fa_icon('user', text: "Borrowers")
+            -if admin_signed_in?
+              %li
+                %a{:href => items_path}=fa_icon('book', text: "Items")
+              %li
+                %a{:href => categories_path}=fa_icon('clipboard', text: "Categories")
+              %li
+                %a{:href => users_path}=fa_icon('user', text: "Borrowers")
             %li.dropdown
               %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
                 Dropdown

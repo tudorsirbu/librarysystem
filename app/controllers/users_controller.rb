@@ -61,6 +61,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def find
+    # fint the user with the given barcode
+    user = User.find_by_ucard_no(user_params[:ucard_no])
+
+    if user.nil?
+      redirect_to new_user_path
+    else
+      redirect_to user_path(user)
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

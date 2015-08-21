@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 
   resources :loans
 
-  resources :users
+  resources :users do
+    collection do
+      post :find
+    end
+  end
 
   resources :categories
 

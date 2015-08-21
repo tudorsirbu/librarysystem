@@ -18,14 +18,14 @@
       = f.submit "Search",class: "btn btn-info search"
     - @items.each do |item|
       %tr
-        %td= item.title
+        %td= link_to item.title, item
         %td= item.barcode
         %td= Category.find(item.category_id).name.humanize
         %td= item.publisher
         %td= item.year
-        %td= button_to 'Show', item, { :class=>"btn btn-primary btn-sm" }
-        %td= button_to 'Edit', edit_item_path(item), { :class=>"btn btn-success btn-sm" }
-        %td= button_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-danger btn-sm"
+        %td= button_to 'Show', item, class: "btn btn-primary btn-sm", method: :get
+        %td= button_to 'Edit', edit_item_path(item), class: "btn btn-success btn-sm", method: :get
+        %td= button_to 'Delete', item, method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-danger btn-sm"
 = will_paginate @items
 %br/
 = link_to 'New Item', new_item_path, { :class=>"btn btn-success btn-lg" }

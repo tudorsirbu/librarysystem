@@ -73,7 +73,6 @@ ActiveRecord::Schema.define(version: 20150821204310) do
     t.string   "job_title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean  "admin"
   end
 
 end

@@ -15,11 +15,6 @@ class Item < ActiveRecord::Base
 
       item = Item.new
       item.title = row_item["title"]
-      if row_item["details"] && (row_item["details"].include? "ELTC")
-          item.isbn = row_item["details"].split(//).last(8).join
-      else
-        item.isbn = row_item["isbn"]
-      end
       item.category_id = row_item["category_id"]
       item.publisher = row_item["publisher"]
       item.year = row_item["year"]

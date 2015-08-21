@@ -20,12 +20,16 @@
         / Collect the nav links, forms, and other content for toggling
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           %ul.nav.navbar-nav
-            %li.active
+            %li
               %a{:href => root_path}
                 Home
                 %span.sr-only (current)
             %li
-              %a{:href => "#"} Link
+              %a{:href => items_path}=fa_icon('book', text: "Items")
+            %li
+              %a{:href => categories_path}=fa_icon('clipboard', text: "Categories")
+            %li
+              %a{:href => users_path}=fa_icon('user', text: "Borrowers")
             %li.dropdown
               %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
                 Dropdown

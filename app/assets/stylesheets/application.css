@@ -16,5 +16,7 @@
  *= require_tree .
  *= require_self
  */
-
+.input {
+    display: inline !important;
+}
 

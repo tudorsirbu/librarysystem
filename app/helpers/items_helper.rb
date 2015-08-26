@@ -10,9 +10,9 @@ module ItemsHelper
     # check if the item's details can be found on open library
     lookup_by_isbn_openlib item
 
-    # unless item.valid?
-    #   lookup_by_isbn_google item
-    # end
+    unless item.valid?
+      lookup_by_isbn_google item
+    end
   end
 
 
@@ -35,12 +35,15 @@ module ItemsHelper
     Outpan.find(isbn)
   end
 
-  def lookup_by_isbn_google(isbn)
-    url = "https://www.googleapis.com/books/v1/volumes?q=isbn:#{isbn}"
+  def lookup_by_isbn_google(item)
+    url = "https://www.googleapis.com/books/v1/volumes?q=isbn:#{item.barcode}"
     response = HTTParty.get(url, verify: false)
 
     if response['totalItems'] > 0
-      a['items'].first
+      book = response['items'].first['volumeInfo']
+      item.title = book['title'] unless book['title'].nil? || book['title'].empty?
+      item.year = Time.parse(book['publishedDate']).year unless  book['publishedDate'].nil? || book['publishedDate'].empty?
+      item.category = Category.find_or_create_by(name: book['categories'].first) unless book['categories'].nil? || book['categories'].empty?
     end
   end
 

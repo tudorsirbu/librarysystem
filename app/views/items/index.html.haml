@@ -13,8 +13,10 @@
     = search_form_for @search,:builder => SimpleForm::FormBuilder do |f|
       = f.input :title_cont,:label => "Title"
       = f.input :barcode_cont,:label => "Barcode"
+      = f.input :category_search, collection: Category.all.map {|v| v.to_label}, label: "Category: ", required: false,
+            include_blank: true
       = f.submit "Search",class: "btn btn-info search"
-    - @items.each do |item|
+    - @items.group("barcode", "items.id").each do |item|
       %tr
         %td= link_to item.title, item
         %td= item.barcode
@@ -28,3 +30,5 @@
 %br/
 = link_to 'New Item', new_item_path, { :class=>"btn btn-success btn-lg" }
 
+:javascript
+    $("#q_category_search").select2({allowClear: true, dropdownAutoWidth : true, width: 'resolve'});

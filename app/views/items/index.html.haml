@@ -3,20 +3,27 @@
 %table.table.table-striped
   %thead
     %tr
-      %th Title
-      %th Barcode
-      %th Category
-      %th Publisher
-      %th Year
+      %th
+        = sort_link @search, :title, "Title"
+      %th
+        = sort_link @search, :barcode, "Barcode"
+      %th
+        = sort_link @search, :category_id, "Category"
+      %th
+        = sort_link @search, :publisher, "Publisher"
+      %th
+        = sort_link @search, :year, "Year"
       %th{:colspan => "3"}
   %tbody
     = search_form_for @search,:builder => SimpleForm::FormBuilder do |f|
       = f.input :title_cont,:label => "Title"
       = f.input :barcode_cont,:label => "Barcode"
+      = f.input :category_search, collection: Category.all.map {|v| v.to_label}, label: "Category: ", required: false,
+            include_blank: true
       = f.submit "Search",class: "btn btn-info search"
-    - @items.each do |item|
+    - @items.group("barcode", "items.id").each do |item|
       %tr
-        %td= link_to item.title, item
+        %td= item.title
         %td= item.barcode
         %td= Category.find(item.category_id).name.humanize
         %td= item.publisher
@@ -28,3 +35,5 @@
 %br/
 = link_to 'New Item', new_item_path, { :class=>"btn btn-success btn-lg" }
 
+:javascript
+    $("#q_category_search").select2({allowClear: true, dropdownAutoWidth : true, width: 'resolve'});

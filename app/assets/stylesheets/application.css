@@ -12,6 +12,8 @@
  *
  *= require "bootstrap.min"
  *= require font-awesome
+
+ *= require select2
  *= require gritter
  *= require_tree .
  *= require_self

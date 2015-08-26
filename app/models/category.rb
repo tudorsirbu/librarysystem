@@ -1,4 +1,5 @@
 class Category < ActiveRecord::Base
+has_many :items
   def self.import
     categories = Rails.root.join('db').join('categories.csv')
 
@@ -11,4 +12,7 @@ class Category < ActiveRecord::Base
 
   end
 
+  def to_label
+    "#{self.name}"
+  end
 end

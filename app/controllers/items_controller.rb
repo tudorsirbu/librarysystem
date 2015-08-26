@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  include ItemsHelper
+
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   # GET /items
@@ -26,6 +28,9 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(item_params)
+
+    # get additional information about the item on external APIs
+    lookup_by_isbn(@item)
 
     respond_to do |format|
       if @item.save

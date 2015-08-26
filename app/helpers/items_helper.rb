@@ -37,9 +37,9 @@ module ItemsHelper
 
   def lookup_by_isbn_google(item)
     url = "https://www.googleapis.com/books/v1/volumes?q=isbn:#{item.barcode}"
-    response = HTTParty.get(url, verify: false)
+    response = HTTParty.get(url)
 
-    if response['totalItems'] > 0
+    if !response.nil? && response['totalItems'] > 0
       book = response['items'].first['volumeInfo']
       item.title = book['title'] unless book['title'].nil? || book['title'].empty?
       item.year = Time.parse(book['publishedDate']).year unless  book['publishedDate'].nil? || book['publishedDate'].empty?
@@ -51,31 +51,5 @@ module ItemsHelper
     url = "http://isbndb.com/api/books.xml?access_key=3X55ERZS&index1=isbn&value1=#{isbn}"
     response = HTTParty.get(url)
     response['ISBNdb']['BookList']['BookData']
-  end
-
-  def lookup_by_isbn_db(isbn)
-    url = "http://www.isbndb.com/api/books.xml?access_key=3X55ERZS&index1=isbn&value1=#{isbn}"
-  end
-
-  def lookup_by_isbn_amazon(isbn)
-    # url = "http://webservices.amazon.com/onca/xml?
-    #                 Service=AWSECommerceService
-    #                 &Operation=ItemLookup
-    #                 &ResponseGroup=Large
-    #                 &SearchIndex=All
-    #                 &IdType=ISBN
-    #                 &ItemId=076243631X
-    #                 &AWSAccessKeyId=AKIAJ6N4SNIJKQXKEEIQ
-    #                 &AssociateTag=[Your_AssociateTag]
-    #                 &Timestamp=[YYYY-MM-DDThh:mm:ssZ]
-    #                 &Signature=[Request_Signature]"
-
-    request = Vacuum.new
-    request.configure(aws_access_key_id: 'AKIAJCBD436MLAFS6QHQ', aws_secret_access_key: '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', associate_tag: 'el09e-21')
-    response = request.item_lookup(
-        query: {
-            'IsbnId' => isbn
-        }
-    )
   end
 end

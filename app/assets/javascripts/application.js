@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require "bootstrap.min"
+//= require gritter
 //= require turbolinks
 //= require select2
 //= require_tree .
+

@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
       user.surname = row_user["surname"]
       user.forename = row_user["forename"]
       user.job_title = row_user["job_title"]
-      user.admin = false
       user.save
     end
 

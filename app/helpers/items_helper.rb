@@ -8,17 +8,27 @@ module ItemsHelper
 
   def lookup_by_isbn(item)
     # check if the item's details can be found on open library
-    item = lookup_by_isbn_openlib isbn
+    lookup_by_isbn_openlib item
+
+    # unless item.valid?
+    #   lookup_by_isbn_google item
+    # end
   end
 
 
   private
-  def lookup_by_isbn_openlib(isbn)
+  def lookup_by_isbn_openlib(item)
     # create instance to the oo
     data = Openlibrary::Data
 
     # lookup the item
-    data.find_by_isbn isbn
+    result = data.find_by_isbn item.barcode
+
+    unless result.nil?
+      item.title = result.title unless result.title.nil?
+      item.year = Time.parse(result.publish_date).year unless result.publish_date.nil?
+      # item.publisher = result.publishers.map{|p| }
+    end
   end
 
   def lookup_by_isbn_outpan(isbn)

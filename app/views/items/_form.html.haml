@@ -8,14 +8,6 @@
         - @item.errors.full_messages.each do |message|
           %li= message
   .field
-    = f.input :title
-  .field
-    = f.input :barcode
-  .field
-    = f.input :category_id
-  .field
-    = f.input :publisher
-  .field
-    = f.input :year
+    = f.input :barcode, autofocus: true
   .actions
     = f.submit :class => "btn btn-info"

@@ -1,7 +1,10 @@
 require 'csv'
 class Item < ActiveRecord::Base
-belongs_to :location
-belongs_to :category
+  belongs_to :location
+  belongs_to :category
+
+  validates_presence_of :barcode, :title, :year
+
   def self.import
     items = Rails.root.join('db').join('items.csv')
     barcodes = Rails.root.join('db').join('barcodes.csv')

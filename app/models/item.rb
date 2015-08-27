@@ -3,7 +3,7 @@ class Item < ActiveRecord::Base
   belongs_to :location
   belongs_to :category
 
-  validates_presence_of :barcode, :title, :year
+  validates_presence_of :barcode, :title, :year, :category
 
   def self.import
     items = Rails.root.join('db').join('items.csv')

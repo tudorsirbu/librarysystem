@@ -11,7 +11,13 @@ module ItemsHelper
     lookup_by_isbn_openlib item
 
     unless item.valid?
+      puts "now looking up on Google"
       lookup_by_isbn_google item
+    end
+
+    unless item.valid?
+      puts "now looking up on outpan"
+      lookup_by_isbn_outpan item
     end
   end
 
@@ -25,6 +31,7 @@ module ItemsHelper
     result = data.find_by_isbn item.barcode
 
     unless result.nil?
+      puts result.to_s
       item.title = result.title unless result.title.nil?
       item.year = Time.parse(result.publish_date).year unless result.publish_date.nil?
       # item.publisher = result.publishers.map{|p| }
@@ -33,11 +40,14 @@ module ItemsHelper
 
   def lookup_by_isbn_outpan(item)
     result = Outpan.find(item.barcode)
-
     unless result.nil?
       item.title = result['name'] unless result['name'].nil? || result['name'].empty?
-      book_attributes = result['attributes']
-      item.year = Time.parse(book_attributes['Publication Date']).year unless book_attributes['Publication Date'].nil? || book_attributes['Publication Date'].empty?
+
+      unless result['attributes'].nil? || result['attributes'].empty?
+        book_attributes = result['attributes']
+        item.year = Time.parse(book_attributes['Publication Date']).year unless book_attributes['Publication Date'].nil? || book_attributes['Publication Date'].empty?
+      end
+
       item.thumbnail = result['images'].first unless result['images'].nil? || result['images'].empty?
     end
   end
@@ -47,10 +57,12 @@ module ItemsHelper
     response = HTTParty.get(url, verify: false)
 
     if !response.nil? && response['totalItems'] > 0
+      puts response
       book = response['items'].first['volumeInfo']
       item.title = book['title'] unless book['title'].nil? || book['title'].empty?
       item.year = Time.parse(book['publishedDate']).year unless  book['publishedDate'].nil? || book['publishedDate'].empty?
       item.category = Category.find_or_create_by(name: book['categories'].first) unless book['categories'].nil? || book['categories'].empty?
+      item.thumbnail = book['imageLinks']['smallThumbnail'] unless book['imageLinks']['smallThumbnail'].nil? || book['imageLinks']['smallThumbnail'].empty?
     end
   end
 

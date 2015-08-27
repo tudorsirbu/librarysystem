@@ -31,13 +31,20 @@ module ItemsHelper
     end
   end
 
-  def lookup_by_isbn_outpan(isbn)
-    Outpan.find(isbn)
+  def lookup_by_isbn_outpan(item)
+    result = Outpan.find(item.barcode)
+
+    unless result.nil?
+      item.title = result['name'] unless result['name'].nil? || result['name'].empty?
+      book_attributes = result['attributes']
+      item.year = Time.parse(book_attributes['Publication Date']).year unless book_attributes['Publication Date'].nil? || book_attributes['Publication Date'].empty?
+      item.thumbnail = result['images'].first unless result['images'].nil? || result['images'].empty?
+    end
   end
 
   def lookup_by_isbn_google(item)
     url = "https://www.googleapis.com/books/v1/volumes?q=isbn:#{item.barcode}"
-    response = HTTParty.get(url)
+    response = HTTParty.get(url, verify: false)
 
     if !response.nil? && response['totalItems'] > 0
       book = response['items'].first['volumeInfo']

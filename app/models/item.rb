@@ -34,7 +34,23 @@ class Item < ActiveRecord::Base
   end
 
   def to_label
-    "#{self.title} - #{self.barcode} - #{Category.find(self.category_id).name}"
+    if self.category_id
+      "#{self.title} - #{self.barcode} - #{self.category.name}"
+    else
+      "#{self.title} - #{self.barcode}"
+    end
+  end
+
+  def total_available
+    number_of_avaiblable_items = 0
+    items = Item.where(barcode: self.barcode).map{|i|i.id}
+    items.each do |item|
+      loan = Loan.find_by_item_id(item)
+      if !loan || loan.returned_on = nil
+        number_of_avaiblable_items += 1
+      end
+    end
+    return number_of_avaiblable_items
   end
 
   def self.category_search(category)

@@ -13,6 +13,7 @@
         = sort_link @search, :publisher, "Publisher"
       %th
         = sort_link @search, :year, "Year"
+      %th Available
       %th{:colspan => "3"}
   %tbody
     = search_form_for @search,:builder => SimpleForm::FormBuilder do |f|
@@ -28,6 +29,7 @@
         %td= Category.find(item.category_id).name.humanize
         %td= item.publisher
         %td= item.year
+        %td= item.total_available
         %td= button_to 'Show', item, class: "btn btn-primary btn-sm", method: :get
         %td= button_to 'Edit', edit_item_path(item), class: "btn btn-success btn-sm", method: :get
         %td= button_to 'Delete', item, method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-danger btn-sm"

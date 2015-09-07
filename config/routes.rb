@@ -2,12 +2,11 @@ Rails.application.routes.draw do
   devise_for :admins
   resources :locations
 
-  resources :loans
+
+  resources :loans, except: [:new, :create,]
 
   resources :users do
-    collection do
-      post :find
-    end
+    resources :loans, only: [:new, :create]
   end
 
   resources :categories

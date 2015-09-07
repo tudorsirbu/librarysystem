@@ -14,4 +14,4 @@ Rails.application.config.assets.precompile += %w( dashboard.js )
 Rails.application.config.assets.precompile += %w( users.js )
 Rails.application.config.assets.precompile += %w( items.js )
 Rails.application.config.assets.precompile += %w( categories.js )
-
+Rails.application.config.assets.precompile += %w( loans.js )

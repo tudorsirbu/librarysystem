@@ -1,4 +1,4 @@
-= form_for @loan do |f|
+= simple_form_for @loan do |f|
   - if @loan.errors.any?
     #error_explanation
       %h2= "#{pluralize(@loan.errors.count, "error")} prohibited this loan from being saved:"
@@ -7,13 +7,10 @@
           %li= msg
 
   .field
-    = f.label :user_id
-    = f.number_field :user_id
+    = f.input :user_id, as: :hidden
   .field
-    = f.label :item_id
-    = f.number_field :item_id
+    = f.input :item_id, collection: Item.all.group("barcode", "items.id"), label: "Item: ",include_blank: true
   .field
-    = f.label :due_date
-    = f.datetime_select :due_date
+    = f.input :due_date, as: :hidden
   .actions
-    = f.submit 'Save'
+    = f.submit

@@ -32,6 +32,11 @@ class Item < ActiveRecord::Base
     end
 
   end
+
+  def to_label
+    "#{self.title} - #{self.barcode} - #{Category.find(self.category_id).name}"
+  end
+
   def self.category_search(category)
     joins(:category).where("LOWER(categories.name) LIKE ?","%#{category.downcase}%")
   end

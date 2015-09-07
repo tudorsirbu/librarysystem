@@ -1,6 +1,6 @@
 %h1 Listing loans
 
-%table
+%table.table.table-striped
   %thead
     %tr
       %th User
@@ -14,7 +14,7 @@
     - @loans.each do |loan|
       %tr
         %td= loan.user_id
-        %td= loan.item_id
+        %td= Item.find(loan.item_id).to_label
         %td= loan.due_date
         %td= link_to 'Show', loan
         %td= link_to 'Edit', edit_loan_path(loan)
@@ -22,4 +22,4 @@
 
 %br
 
-= link_to 'New Loan', new_loan_path
+= link_to 'New Loan', new_loan_path, { :class=>"btn btn-success btn-lg" }

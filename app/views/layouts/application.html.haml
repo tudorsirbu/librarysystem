@@ -31,23 +31,8 @@
                 %a{:href => categories_path}=fa_icon('clipboard', text: "Categories")
               %li
                 %a{:href => users_path}=fa_icon('user', text: "Borrowers")
-            %li.dropdown
-              %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-                Dropdown
-                %span.caret
-              %ul.dropdown-menu
-                %li
-                  %a{:href => "#"} Action
-                %li
-                  %a{:href => "#"} Another action
-                %li
-                  %a{:href => "#"} Something else here
-                %li.divider{:role => "separator"}
-                %li
-                  %a{:href => "#"} Separated link
-                %li.divider{:role => "separator"}
-                %li
-                  %a{:href => "#"} One more separated link
+              %li
+                %a{:href => loans_path}=fa_icon('calendar', text: "Loans")
           %form.navbar-form.navbar-left{:role => "search"}
             .form-group
               %input.form-control{:placeholder => "Search", :type => "text"}/

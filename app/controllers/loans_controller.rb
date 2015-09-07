@@ -27,11 +27,11 @@ class LoansController < ApplicationController
   # POST /loans
   # POST /loans.json
   def create
-    @loan = Loan.new(loan_params)
+    item = Item.find_by_barcode(loan_params[:barcode])
+    @loan = Loan.new
+    @loan.item = item
     @loan.user = @user
     @loan.due_date = (Time.now + 7.day).strftime('%Y-%m-%dT%T')
-    @loan.save
-
     respond_to do |format|
       if @loan.save
         format.html { redirect_to loan_path(@loan), notice: 'Loan was successfully created.' }
@@ -79,6 +79,6 @@ class LoansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def loan_params
-      params.require(:loan).permit(:user_id, :item_id, :due_date)
+      params.require(:loan).permit(:user_id, :item_id,:barcode, :due_date)
     end
 end

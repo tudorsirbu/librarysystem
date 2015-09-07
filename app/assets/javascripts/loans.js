@@ -1,17 +1,17 @@
 window.onload = function() {
-    document.getElementById("loan_item_id").focus();
+    document.getElementById("loan_barcode").focus();
 };
 
-$("#loan_item_id").focus();
+$("#loan_barcode").focus();
 var barcode = "";
 $(function() {
     $(window).keypress(function(e) {
-        barcode += String.fromCharCode(e.keyCode);
-
-        if(barcode.length ==9){
+        if(e.keyCode == 13 ){
             console.log(barcode);
-            $("#loan_item_id").val(barcode);
+            $("#loan_barcode").val(barcode);
             $('#new_loan').submit();
+        }else{
+            barcode += String.fromCharCode(e.keyCode);
         }
     });
 });

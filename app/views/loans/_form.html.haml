@@ -5,12 +5,6 @@
       %ul
         - @loan.errors.full_messages.each do |msg|
           %li= msg
+  .field
+    = f.input :barcode, as: :hidden
 
-  .field
-    = f.input :user_id, as: :hidden
-  .field
-    = f.input :item_id, collection: Item.all.group("barcode", "items.id"), label: "Item: ",include_blank: true
-  .field
-    = f.input :due_date, as: :hidden
-  .actions
-    = f.submit

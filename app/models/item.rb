@@ -2,6 +2,7 @@ require 'csv'
 class Item < ActiveRecord::Base
   belongs_to :location
   belongs_to :category
+  has_many :loans
 
   validates_presence_of :barcode, :title, :year, :category
 

@@ -1,27 +1,7 @@
-= form_for(@user) do |f|
-  - if @user.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@user.errors.count, "error")
-        prohibited this user from being saved:
-      %ul
-        - @user.errors.full_messages.each do |message|
-          %li= message
-  .field
-    = f.label :ucard_no
-    %br/
-    = f.text_field :ucard_no
-  .field
-    = f.label :surname
-    %br/
-    = f.text_field :surname
-  .field
-    = f.label :forename
-    %br/
-    = f.text_field :forename
-  .field
-    = f.label :job_title
-    %br/
-    = f.text_field :job_title
+= simple_form_for(@user) do |f|
+  = f.input :ucard_no, readonly: @user.ucard_no.nil? ? false : true
+  = f.input :surname, autofocus: true
+  = f.input :forename
+  = f.input :job_title
   .actions
-    = f.submit
+    = f.submit class: 'btn btn-success'

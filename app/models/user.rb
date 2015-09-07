@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  validates_presence_of :ucard_no, :surname, :forename, :job_title
+
   def self.import
     users = Rails.root.join('db').join('users.csv')
 

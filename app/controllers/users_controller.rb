@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authenticate_admin!, only: [:new, :create, :show]
 
   # GET /users
   # GET /users.json
@@ -24,7 +25,14 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
+    # find the user with the given barcode
+    @user = User.find_by_ucard_no(user_params[:ucard_no])
+
+    if @user.nil?
+      @user = User.new(user_params)
+    else
+      redirect_to user_path(@user) and return
+    end
 
     respond_to do |format|
       if @user.save
@@ -62,11 +70,11 @@ class UsersController < ApplicationController
   end
 
   def find
-    # fint the user with the given barcode
-    user = User.find_by_ucard_no(user_params[:ucard_no])
+
 
     if user.nil?
-      redirect_to new_user_path
+      @user = User.new(ucard_no: user_params[:ucard_no])
+      redirect_to new_user_path(@user)
     else
       redirect_to user_path(user)
     end

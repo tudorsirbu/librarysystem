@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     if @user.nil?
       @user = User.new(user_params)
     else
-      redirect_to user_path(@user) and return
+      redirect_to new_user_loan_path(@user) and return
     end
 
     respond_to do |format|

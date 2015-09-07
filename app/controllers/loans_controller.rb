@@ -4,7 +4,8 @@ class LoansController < ApplicationController
   # GET /loans
   # GET /loans.json
   def index
-    @loans = Loan.all
+    @search = Loan.ransack(params[:q])
+    @loans  = @search.result.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /loans/1

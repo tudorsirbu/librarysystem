@@ -4,7 +4,8 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all
+    @search = Category.ransack(params[:q])
+    @categories  = @search.result.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /categories/1

@@ -11,6 +11,9 @@
       %th
 
   %tbody
+    = search_form_for @search,:builder => SimpleForm::FormBuilder do |f|
+      = f.input :loan_user_search,:label => "User", collection: User.all.map {|v| v.to_label},include_blank: true
+      = f.submit "Search",class: "btn btn-info search"
     - @loans.each do |loan|
       %tr
         %td= loan.user_id
@@ -23,3 +26,5 @@
 %br
 
 = link_to 'New Loan', new_loan_path, { :class=>"btn btn-success btn-lg" }
+:javascript
+    $("#q_loan_user_search").select2({allowClear: true, dropdownAutoWidth : true, width: 'resolve'});

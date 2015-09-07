@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :loans
   def self.import
     users = Rails.root.join('db').join('users.csv')
 
@@ -11,6 +12,15 @@ class User < ActiveRecord::Base
       user.job_title = row_user["job_title"]
       user.save
     end
+  end
+  def self.full_name_search(searchstr)
+    where("LOWER(users.forename) || LOWER(users.surname) LIKE ?","%#{searchstr.downcase}%")
+  end
 
+  def self.ransackable_scopes(auth_object = nil)
+    [:full_name_search]
+  end
+  def to_label
+    "#{self.forename} #{self.surname}"
   end
 end

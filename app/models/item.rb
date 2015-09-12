@@ -47,7 +47,7 @@ class Item < ActiveRecord::Base
     items = Item.where(barcode: self.barcode).map{|i|i.id}
     items.each do |item|
       loan = Loan.find_by_item_id(item)
-      if !loan || loan.returned_on = nil
+      if !loan || loan.returned_on.nil?
         number_of_avaiblable_items += 1
       end
     end

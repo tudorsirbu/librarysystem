@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   include ItemsHelper
+  skip_before_action :authenticate_admin!, only: [:index]
 
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 

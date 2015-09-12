@@ -1,10 +1,24 @@
-= simple_form_for [@user, @loan], url: user_loans_path do |f|
-  - if @loan.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@loan.errors.count, "error")} prohibited this loan from being saved:"
-      %ul
-        - @loan.errors.full_messages.each do |msg|
-          %li= msg
-  .field
-    = f.input :barcode, as: :hidden
-
+.container
+  .row.vertical-center-row
+    .col-lg-12
+      .row
+        .col-xs-12
+          %h1.text-center.extra-large Please scan item
+          %div.hidden{id: "loans_list"}
+            %table.table.table-striped#loans_table
+              %thead
+                %tr
+                  %th User
+                  %th Item
+                  %th Due date
+                  %th
+              %tbody{id: "loans_table_body"}
+        = simple_form_for [@user, @loan], url: user_loans_path, remote: true do |f|
+          - if @loan.errors.any?
+            #error_explanation
+              %h2= "#{pluralize(@loan.errors.count, "error")} prohibited this loan from being saved:"
+              %ul
+                - @loan.errors.full_messages.each do |msg|
+                  %li= msg
+          .field
+            = f.input :barcode, as: :hidden

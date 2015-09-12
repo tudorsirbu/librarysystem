@@ -1,7 +1,7 @@
 class LoansController < ApplicationController
   before_action :set_loan, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:create]
-  skip_before_action :authenticate_admin!, only: [:new, :create, :show]
+  skip_before_action :authenticate_admin!, only: [:new, :create, :show, :destroy]
 
   # GET /loans
   # GET /loans.json
@@ -34,8 +34,8 @@ class LoansController < ApplicationController
     @loan.due_date = (Time.now + 7.day).strftime('%Y-%m-%dT%T')
     respond_to do |format|
       if @loan.save
-        format.html { redirect_to loan_path(@loan), notice: 'Loan was successfully created.' }
         format.json { render :show, status: :created, location: @loan }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @loan.errors, status: :unprocessable_entity }
@@ -60,10 +60,11 @@ class LoansController < ApplicationController
   # DELETE /loans/1
   # DELETE /loans/1.json
   def destroy
+    @id = @loan.id
     @loan.destroy
     respond_to do |format|
-      format.html { redirect_to loans_url, notice: 'Loan was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
     end
   end
 

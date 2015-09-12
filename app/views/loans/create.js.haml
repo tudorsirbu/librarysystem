@@ -1,0 +1,2 @@
+$('#loans_list').removeClass("hidden");
+$("#loans_table_body").append("#{escape_javascript(render 'loans_list', loan:@loan)}");

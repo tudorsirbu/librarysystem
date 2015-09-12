@@ -10,6 +10,7 @@ $(function() {
             console.log(barcode);
             $("#loan_barcode").val(barcode);
             $('#new_loan').submit();
+            barcode = '';
         }else{
             barcode += String.fromCharCode(e.keyCode);
         }

@@ -1,0 +1,6 @@
+:plain
+  $("##{@id}").remove();
+  var rowsOfLoans = $("#loans_table").find("tr").length;
+  if (rowsOfLoans == 1){
+    $('#loans_list').hide();
+  }

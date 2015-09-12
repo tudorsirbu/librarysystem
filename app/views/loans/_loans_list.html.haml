@@ -1,0 +1,5 @@
+%tr{id: "#{@loan.id}"}
+  %td= @loan.user.to_label
+  %td= @loan.item.to_label
+  %td= @loan.due_date
+  %td= button_to 'Cancel Loan', @loan, :method => :delete, class:"btn btn-danger", :data => { :confirm => 'Are you sure?' }, remote: true

@@ -33,10 +33,6 @@
                 %a{:href => users_path}=fa_icon('user', text: "Borrowers")
               %li
                 %a{:href => loans_path}=fa_icon('calendar', text: "Loans")
-          %form.navbar-form.navbar-left{:role => "search"}
-            .form-group
-              %input.form-control{:placeholder => "Search", :type => "text"}/
-            %button.btn.btn-default{:type => "submit"} Submit
           -if admin_signed_in?
             %ul.nav.navbar-nav.navbar-right
               %li
@@ -45,19 +41,5 @@
             %ul.nav.navbar-nav.navbar-right
               %li
                 =link_to "System administration", new_admin_session_path
-            -#%li.dropdown
-            -#  %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-            -#    Dropdown
-            -#    %span.caret
-            -#  %ul.dropdown-menu
-            -#    %li
-            -#      %a{:href => "#"} Action
-            -#    %li
-            -#      %a{:href => "#"} Another action
-            -#    %li
-            -#      %a{:href => "#"} Something else here
-            -#    %li.divider{:role => "separator"}
-            -#    %li
-            -#      %a{:href => "#"} Separated link
     #main-container.container
       = yield

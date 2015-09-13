@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   skip_before_action :authenticate_admin!, only: [:new, :create, :show]
+  skip_before_action :session_active?, only: [:new, :create]
 
   # GET /users
   # GET /users.json
@@ -16,7 +17,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    @user = User.new(ucard_no: params[:barcode])
   end
 
   # GET /users/1/edit
@@ -26,14 +27,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    # find the user with the given barcode
-    @user = User.find_by_ucard_no(user_params[:ucard_no])
-
-    if @user.nil?
-      @user = User.new(user_params)
-    else
-      redirect_to new_user_loan_path(@user) and return
-    end
+    @user = User.new(user_params)
 
     respond_to do |format|
       if @user.save

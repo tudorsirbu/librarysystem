@@ -17,7 +17,11 @@ class LoansController < ApplicationController
 
   # GET /loans/new
   def new
-    @loan = Loan.new
+    if user_active?
+      @loan = Loan.new
+    else
+      redirect_to dashboard_index_path
+    end
   end
 
   # GET /loans/1/edit

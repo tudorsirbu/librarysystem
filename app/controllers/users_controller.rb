@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  skip_before_action :authenticate_admin!, only: [:new, :create, :show]
-  skip_before_action :session_active?, only: [:new, :create]
+  skip_before_action :authenticate_admin!, only: [:new, :create, :show, :edit, :update]
+  skip_before_action :session_active?, only: [:new, :create,:update,:edit]
 
   # GET /users
   # GET /users.json

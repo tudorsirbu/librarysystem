@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "library-system@eltc.co.uk"
+  default from: "eltc.librarysystem@gmail.com"
   layout 'mailer'
 end

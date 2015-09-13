@@ -40,6 +40,7 @@ class LoansController < ApplicationController
     end
     respond_to do |format|
       if @loan && @loan.save
+        UserMailer.loan_confirmation(@loan).deliver_now
         format.js
       else
         @loan = Loan.new

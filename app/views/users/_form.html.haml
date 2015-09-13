@@ -2,6 +2,7 @@
   = f.input :ucard_no, readonly: @user.ucard_no.nil? ? false : true
   = f.input :surname, autofocus: true
   = f.input :forename
+  = f.input :email
   = f.input :job_title
   .actions
     = f.submit class: 'btn btn-success'

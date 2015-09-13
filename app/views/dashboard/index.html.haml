@@ -4,6 +4,6 @@
       .row
         .col-xs-12
           %h1.text-center.extra-large Please scan your ucard
-          = simple_form_for User.new do |f|
+          = simple_form_for :user, url: menu_dashboard_index_path do |f|
             =f.input :ucard_no, as: :hidden
 

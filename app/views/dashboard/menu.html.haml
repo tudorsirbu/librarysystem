@@ -1,0 +1,11 @@
+.container
+  .row.vertical-center-row
+    .col-lg-12
+      .row
+        .col-xs-12
+          %h1.text-center.extra-large
+            .btn-group{"aria-label" => "...", :role => "group"}
+              =link_to 'New loan', new_user_loan_path(@user), class: 'btn btn-success btn-xl white', method: :get
+              =link_to 'Return item', '#', class: 'btn btn-primary btn-xl white'
+              =link_to 'Request item', '#', class: 'btn btn-warning btn-xl white'
+

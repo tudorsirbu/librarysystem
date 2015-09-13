@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :loans, except: [:new, :create,]
 
   resources :users do
-    resources :loans, only: [:new, :create]
+    resources :loans, only: [:new, :create, :return]
   end
 
   resources :categories
@@ -14,4 +14,10 @@ Rails.application.routes.draw do
   resources :items
 
   root to: "dashboard#index"
+
+  resources :dashboard, only: [:index, :menu] do
+    collection do
+      post :menu
+    end
+  end
 end

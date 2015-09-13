@@ -22,3 +22,6 @@
     display: inline !important;
 }
 
+a:visited{
+    color: white;
+}

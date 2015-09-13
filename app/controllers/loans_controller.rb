@@ -32,17 +32,19 @@ class LoansController < ApplicationController
   # POST /loans.json
   def create
     item = Item.find_by_barcode(loan_params[:barcode])
-    @loan = Loan.new
-    @loan.item = item
-    @loan.user = @user
-    @loan.due_date = (Time.now + 7.day).strftime('%Y-%m-%dT%T')
+    if item.total_available > 0
+      @loan = Loan.new
+      @loan.item = item
+      @loan.user = @user
+      @loan.due_date = (Time.now + 7.day).strftime('%Y-%m-%dT%T')
+    end
     respond_to do |format|
-      if @loan.save
-        format.json { render :show, status: :created, location: @loan }
+      if @loan && @loan.save
         format.js
       else
+        @loan = Loan.new
+        format.json { render json: {error: "error"}}
         format.html { render :new }
-        format.json { render json: @loan.errors, status: :unprocessable_entity }
       end
     end
   end

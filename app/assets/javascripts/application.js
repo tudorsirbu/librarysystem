@@ -17,4 +17,6 @@
 //= require turbolinks
 //= require select2
 
-
+$.extend($.gritter.options, {
+    position: "bottom-right"
+});

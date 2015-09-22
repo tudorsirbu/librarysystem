@@ -42,6 +42,12 @@ class Item < ActiveRecord::Base
     end
   end
 
+  def return(user)
+    loan = self.loans.where(returned_on: nil, user: user).order('created_at ASC').first
+    loan.return!
+
+  end
+
   def total_available
     number_of_avaiblable_items = 0
     items = Item.where(barcode: self.barcode).map{|i|i.id}

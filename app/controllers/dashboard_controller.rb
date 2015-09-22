@@ -11,8 +11,12 @@ class DashboardController < ApplicationController
 
     if @user.nil?
       redirect_to new_user_path(barcode: params[:user][:ucard_no])
+    elsif @user.email
+      login_user(@user.id)
     else
       login_user(@user.id)
+      flash[:notice] = "Please update your email address!"
+      redirect_to edit_user_path(@user)
     end
   end
 

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  skip_before_action :authenticate_admin!, only: [:new, :create, :show]
-  skip_before_action :session_active?, only: [:new, :create]
+  skip_before_action :authenticate_admin!, only: [:new, :create, :show, :edit, :update]
+  skip_before_action :session_active?, only: [:new, :create,:update,:edit]
 
   # GET /users
   # GET /users.json
@@ -84,6 +84,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:ucard_no, :surname, :forename, :job_title)
+      params.require(:user).permit(:ucard_no, :surname,:email , :forename, :job_title)
     end
 end

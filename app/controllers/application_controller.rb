@@ -28,6 +28,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def login_user(user_id)
+    session[:current_user_id] = user_id
+    session[:last_active] = Time.now
+  end
+
   def user_active?
     unless session[:current_user_id].nil? && session[:last_active].nil?
       last_active = session[:last_active]

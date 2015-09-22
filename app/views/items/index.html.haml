@@ -27,7 +27,8 @@
       %tr
         %td= item.title
         %td= item.barcode
-        %td= Category.find(item.category_id).name.humanize
+        %td
+          = item.category.name.humanize unless item.category.nil?
         %td= item.publisher
         %td= item.year
         %td= item.total_available

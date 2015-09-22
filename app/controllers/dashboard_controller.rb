@@ -13,6 +13,7 @@ class DashboardController < ApplicationController
       redirect_to new_user_path(barcode: params[:user][:ucard_no])
     elsif @user.email
       login_user(@user.id)
+      redirect_to new_user_loan_path(current_user)
     else
       login_user(@user.id)
       flash[:notice] = "Please update your email address!"

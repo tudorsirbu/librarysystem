@@ -31,7 +31,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        login_user(@user.id)
+        format.html { redirect_to menu_dashboard_index_path(user: {ucard_no: @user.ucard_no}), notice: 'Your account has been created successfully.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }

@@ -12,8 +12,7 @@ class DashboardController < ApplicationController
     if @user.nil?
       redirect_to new_user_path(barcode: params[:user][:ucard_no])
     else
-      session[:current_user_id] = @user.id
-      session[:last_active] = Time.now
+      login_user(@user.id)
     end
   end
 

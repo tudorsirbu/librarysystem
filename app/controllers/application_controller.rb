@@ -3,13 +3,17 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :authenticate_admin!
-  before_action :session_active?
   after_action :update_last_active
 
   def session_active?
-    unless user_active?
+    if !user_active? && !admin_signed_in?
       redirect_to dashboard_index_path
     end
+  end
+
+  def login_user(user_id)
+    session[:current_user_id] = user_id
+    session[:last_active] = Time.now
   end
 
   def current_user

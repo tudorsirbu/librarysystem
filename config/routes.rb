@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :dashboard, only: [:index, :menu] do
     collection do
       post :menu
+      get :menu
     end
   end
 end

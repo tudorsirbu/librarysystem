@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
 
       user = User.new
       user.ucard_no = "00" + row_user["ucard_no"]
-      user.surname = row_user["surname"]
-      user.forename = row_user["forename"]
+      user.surname = row_user["forename"]
+      user.forename = row_user["surname"]
       user.job_title = row_user["job_title"]
       user.save(validate: false)
     end

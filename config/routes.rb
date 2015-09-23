@@ -7,17 +7,16 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :loans, only: [:new, :create]
-
-    resources :items, only: [:return] do
-      collection do
-        post :return
-      end
-    end
   end
 
   resources :categories
 
-  resources :items
+  resources :items do
+    collection do
+      get :return_scan
+      post :return
+    end
+  end
 
   root to: "dashboard#index"
 

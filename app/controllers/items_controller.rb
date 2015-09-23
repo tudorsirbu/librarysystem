@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   include ItemsHelper
-  skip_before_action :authenticate_admin!, only: [:index]
+  skip_before_action :authenticate_admin!, only: [:index, :return, :return_scan]
 
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
@@ -69,15 +69,21 @@ class ItemsController < ApplicationController
   end
 
   def return
-    user = User.find(params[:user_id])
-    item = Item.find_by_barcode(params[:barcode])
+    item = Item.find_by_barcode(params[:loan][:barcode])
 
-    # mark the loan oldest loan for this user and item as returned
-    if item.return(user)
-      # TODO MARK THE ITEM AS RETURNED
-    else
-      # TODO SHOW ERROR
+    respond_to do |format|
+      # mark the loan oldest loan for this user and item as returned
+      if item.return(current_user)
+        puts "success"
+        format.json { render json: {success: true} }
+      else
+        format.json { render json: {success: false }, status: 401}
+      end
     end
+  end
+
+  def return_scan
+
   end
 
   private

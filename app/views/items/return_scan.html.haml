@@ -1,0 +1,40 @@
+:javascript
+  var barcode = "";
+  $(function() {
+    $(window).keypress(function(e) {
+      if(e.keyCode == 13 ){
+        console.log(barcode);
+        $("#loan_barcode").val(barcode);
+        $('form').submit();
+        barcode = '';
+      }else{
+        barcode += String.fromCharCode(e.keyCode);
+      }
+    });
+  });
+
+  $(document).on('ajax:success',"form", function(xhr, data, response) {
+    return $.gritter.add({
+      image: '/assets/success.png',
+      title: 'Notification',
+      text:  'Loan returned successfully! Thank you'
+    });
+  });
+
+  $(document).on('ajax:error',"form", function(xhr, data, response) {
+    return $.gritter.add({
+      image: '/assets/error.png',
+      title: 'Notification',
+      text: 'Loan not found! Please contact Heather Wilson!'
+    });
+  });
+.container
+  .row.vertical-center-row
+    .col-lg-12
+      .row
+        .col-xs-12
+          %h1.text-center.extra-large
+            Please scan an item to return it
+        = simple_form_for :loan, url: return_items_path, remote: true do |f|
+          .field
+            = f.input :barcode, as: :hidden

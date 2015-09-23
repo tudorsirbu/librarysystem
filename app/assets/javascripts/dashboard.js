@@ -1,4 +1,3 @@
-console.log('waiting');
 var barcode = "";
 $(function() {
     $(window).keypress(function(e) {

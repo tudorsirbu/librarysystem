@@ -74,7 +74,6 @@ class ItemsController < ApplicationController
     respond_to do |format|
       # mark the loan oldest loan for this user and item as returned
       if item.return(current_user)
-        puts "success"
         format.json { render json: {success: true} }
       else
         format.json { render json: {success: false }, status: 401}

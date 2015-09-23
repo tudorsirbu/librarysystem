@@ -17,4 +17,5 @@
 /log/*
 !/log/.keep
 /tmp
+config/secrets.yml
 db/schema.rb

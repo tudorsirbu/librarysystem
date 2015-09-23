@@ -31,7 +31,11 @@
           = item.category.name.humanize unless item.category.nil?
         %td= item.publisher
         %td= item.year
-        %td= item.total_available
+        %td
+          -if item.total_available == 0 && user_active?
+            %td= button_to 'Request this item', "#", class: "btn btn-primary btn-sm", method: :get
+          -else
+            = item.total_available
         - if admin_signed_in?
           %td= button_to 'Show', item, class: "btn btn-primary btn-sm", method: :get
           %td= button_to 'Edit', edit_item_path(item), class: "btn btn-success btn-sm", method: :get

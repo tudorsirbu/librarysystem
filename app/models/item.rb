@@ -53,15 +53,15 @@ class Item < ActiveRecord::Base
   end
 
   def total_available
-    number_of_avaiblable_items = 0
     items = Item.where(barcode: self.barcode).map{|i|i.id}
+    number_of_avaiblable_items = items.count
     items.each do |item|
-      loan = Loan.find_by_item_id(item)
-      if !loan || loan.returned_on.nil?
-        number_of_avaiblable_items += 1
+      loans = Loan.where(item_id: item, returned_on: nil)
+      unless loans.nil? || loans.empty?
+        number_of_avaiblable_items -= loans.count
       end
     end
-    return number_of_avaiblable_items
+    number_of_avaiblable_items
   end
 
   def self.category_search(category)

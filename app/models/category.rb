@@ -8,7 +8,7 @@ class Category < ActiveRecord::Base
 
       category = Category.new
       category.name = row_category["name"]
-      category.save
+      category.save(validate:false)
     end
 
   end

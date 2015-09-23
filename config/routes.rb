@@ -6,7 +6,13 @@ Rails.application.routes.draw do
   resources :loans, except: [:new, :create,]
 
   resources :users do
-    resources :loans, only: [:new, :create, :return]
+    resources :loans, only: [:new, :create]
+
+    resources :items, only: [:return] do
+      collection do
+        post :return
+      end
+    end
   end
 
   resources :categories

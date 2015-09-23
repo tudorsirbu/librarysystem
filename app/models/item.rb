@@ -44,8 +44,13 @@ class Item < ActiveRecord::Base
 
   def return(user)
     loan = self.loans.where(returned_on: nil, user: user).order('created_at ASC').first
-    loan.return!
 
+    if loan.nil? || loan.empty?
+      false
+    else
+      loan.return!
+      true
+    end
   end
 
   def total_available

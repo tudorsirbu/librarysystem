@@ -68,6 +68,18 @@ class ItemsController < ApplicationController
     end
   end
 
+  def return
+    user = User.find(params[:user_id])
+    item = Item.find_by_barcode(params[:barcode])
+
+    # mark the loan oldest loan for this user and item as returned
+    if item.return(user)
+      # TODO MARK THE ITEM AS RETURNED
+    else
+      # TODO SHOW ERROR
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item

@@ -18,12 +18,17 @@ $(function() {
 });
 
 $(document).on('ajax:success',"#new_loan", function(xhr, data, response) {
-    if (data.error) {
-        return $.gritter.add({
-            image: '/assets/error.png',
-            title: 'Notification',
-            text: 'This item was not returned properly, please contact Heather Wilson!'
-        });
-    }
+    return $.gritter.add({
+        image: '/assets/success.png',
+        title: 'Notification',
+        text: 'Loan created successfully!'
+    });
+});
 
+$(document).on('ajax:error',"#new_loan", function(xhr, data, response) {
+    return $.gritter.add({
+        image: '/assets/error.png',
+        title: 'Notification',
+        text: 'This item was not returned properly, please contact Heather Wilson!'
+    });
 });

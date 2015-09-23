@@ -33,13 +33,16 @@
             -if admin_signed_in? || user_active?
               %li
                 %a{:href => items_path}=fa_icon('book', text: "Items")
+              %li
+                %a{:href => loans_path}=fa_icon('calendar', text: "Loans")
             -if admin_signed_in?
               %li
                 %a{:href => categories_path}=fa_icon('clipboard', text: "Categories")
               %li
                 %a{:href => users_path}=fa_icon('user', text: "Borrowers")
+            - if user_active?
               %li
-                %a{:href => loans_path}=fa_icon('calendar', text: "Loans")
+                =link_to "Log out", "#"
           -if admin_signed_in?
             %ul.nav.navbar-nav.navbar-right
               %li

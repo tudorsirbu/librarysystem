@@ -1,14 +1,21 @@
 class LoansController < ApplicationController
   before_action :set_loan, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:create]
-  skip_before_action :authenticate_admin!, only: [:new, :create, :show, :destroy]
+  skip_before_action :authenticate_admin!, only: [:new, :create, :show, :destroy,:index]
   before_action :session_active?, only: [:new, :create, :show, :destroy]
 
   # GET /loans
   # GET /loans.json
   def index
-    @search = Loan.ransack(params[:q])
-    @loans  = @search.result.paginate(:page => params[:page], :per_page => 10)
+    if user_active?
+      @search = Loan.ransack({"loan_user_search"=> current_user.id})
+      @loans  = @search.result.paginate(:page => params[:page], :per_page => 10)
+    elsif admin_signed_in?
+      @search = Loan.ransack(params[:q])
+      @loans  = @search.result.paginate(:page => params[:page], :per_page => 10)
+    else
+      session_active?
+    end
   end
 
   # GET /loans/1

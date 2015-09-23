@@ -1,4 +1,8 @@
-%h1 Listing loans
+%h1
+  - if admin_signed_in?
+    Listing loans
+  -else
+    Your loans
 
 %table.table.table-striped
   %thead
@@ -6,22 +10,25 @@
       %th User
       %th Item
       %th Due date
-      %th
-      %th
-      %th
+      -if admin_signed_in?
+        %th
+        %th
+        %th
 
   %tbody
-    = search_form_for @search,:builder => SimpleForm::FormBuilder do |f|
-      = f.input :loan_user_search,:label => "User", collection: User.all,include_blank: true
-      = f.submit "Search",class: "btn btn-info search"
+    -if admin_signed_in?
+      = search_form_for @search,:builder => SimpleForm::FormBuilder do |f|
+        = f.input :loan_user_search,:label => "User", collection: User.all,include_blank: true
+        = f.submit "Search",class: "btn btn-info search"
     - @loans.each do |loan|
       %tr
         %td= loan.user.to_label
         %td= loan.item.to_label
         %td= loan.due_date
-        %td= link_to 'Show', loan
-        %td= link_to 'Edit', edit_loan_path(loan)
-        %td= link_to 'Destroy', loan, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        -if admin_signed_in?
+          %td= link_to 'Show', loan
+          %td= link_to 'Edit', edit_loan_path(loan)
+          %td= link_to 'Destroy', loan, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 

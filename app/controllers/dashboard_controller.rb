@@ -3,6 +3,9 @@ class DashboardController < ApplicationController
   skip_before_action :session_active?
 
   def index
+    if user_active?
+      redirect_to new_user_loan_path(current_user)
+    end
   end
 
   def menu

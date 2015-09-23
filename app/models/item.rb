@@ -27,7 +27,7 @@ class Item < ActiveRecord::Base
         item.year = row_item["year"]
         item.barcode = barcode
         item.location_id = 1
-        item.save
+        item.save(validate: false)
       end
 
     end

@@ -25,14 +25,14 @@
               %a{:href => root_path}
                 =fa_icon('home', text: "Home")
                 %span.sr-only (current)
+            %li
+              %a{:href => items_path}=fa_icon('book', text: "Items")
             - if user_active?
               %li
                 %a{:href => new_user_loan_path(current_user)}=fa_icon('plus', text: "New loan")
               %li
                 %a{:href => return_scan_items_path}=fa_icon('check', text: "Return loan")
             -if admin_signed_in? || user_active?
-              %li
-                %a{:href => items_path}=fa_icon('book', text: "Items")
               %li
                 %a{:href => loans_path}=fa_icon('calendar', text: "Loans")
             -if admin_signed_in?

@@ -21,7 +21,8 @@ $(document).on('ajax:success',"#new_loan", function(xhr, data, response) {
     return $.gritter.add({
         image: '/assets/success.png',
         title: 'Notification',
-        text: 'Loan created successfully!'
+        text: 'Loan created successfully!',
+        class_name: 'gritter-info gritter-center'
     });
 });
 
@@ -29,6 +30,7 @@ $(document).on('ajax:error',"#new_loan", function(xhr, data, response) {
     return $.gritter.add({
         image: '/assets/error.png',
         title: 'Notification',
-        text: 'This item was not returned properly, please contact Heather Wilson!'
+        text: 'This item was not returned properly, please contact Heather Wilson!',
+        class_name: 'gritter-info gritter-center'
     });
 });

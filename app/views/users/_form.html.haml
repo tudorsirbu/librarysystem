@@ -1,7 +1,7 @@
 = simple_form_for(@user) do |f|
   = f.input :ucard_no, readonly: @user.ucard_no.nil? ? false : true
-  = f.input :surname, autofocus: true
-  = f.input :forename
+  = f.input :forename, autofocus: true
+  = f.input :surname
   = f.input :email
   = f.input :job_title
   .actions

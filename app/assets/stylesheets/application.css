@@ -29,3 +29,10 @@ a:visited{
 .navbar-brand{
     padding: 0;
 }
+
+.gritter-center{
+    position:fixed;
+    left:33%;
+    right:33%;
+    top:33%
+}

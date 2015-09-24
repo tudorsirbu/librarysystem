@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :dashboard, only: [:index, :menu] do
     collection do
       post :menu
+      get :logout
       get :menu
     end
   end

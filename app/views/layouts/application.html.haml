@@ -54,5 +54,5 @@
                     =link_to 'Return item', return_scan_items_path, class: 'btn btn-primary btn-xl white'
                   .btn-group{"aria-label" => "...", :role => "group"}
                     =link_to 'Your loans', loans_path, class: 'btn btn-info btn-xl white', method: :get
-                    =link_to 'Logout', '#', class: 'btn btn-danger btn-xl white'
+                    =link_to 'Logout', logout_dashboard_index_path, class: 'btn btn-danger btn-xl white'
       = yield

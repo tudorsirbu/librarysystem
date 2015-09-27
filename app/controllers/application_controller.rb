@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
         last_active = Time.parse(last_active)
       end
 
-      if Time.now - last_active > 10
+      if Time.now - last_active > 30
         session[:current_user_id] = nil
         session[:last_active] = nil
         return false

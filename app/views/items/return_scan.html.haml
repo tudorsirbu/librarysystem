@@ -14,20 +14,25 @@
   });
 
   $(document).on('ajax:success',"form", function(xhr, data, response) {
+    if (!data.error){
+      return $.gritter.add({
+          image: '/assets/success.png',
+          title: 'Notification',
+          text:  'Loan returned successfully! Thank you',
+          class_name: 'gritter-info gritter-center'
+        });
+
+    }else{
     return $.gritter.add({
-      image: '/assets/success.png',
-      title: 'Notification',
-      text:  'Loan returned successfully! Thank you'
-    });
+        image: '/assets/error.png',
+        title: 'Notification',
+        text:  'Loan was not returned successfully!',
+        class_name: 'gritter-info gritter-center'
+      });
+    }
+
   });
 
-  $(document).on('ajax:error',"form", function(xhr, data, response) {
-    return $.gritter.add({
-      image: '/assets/error.png',
-      title: 'Notification',
-      text: 'Loan not found! Please contact Heather Wilson!'
-    });
-  });
 .container
   .row.vertical-center-row
     .col-lg-12

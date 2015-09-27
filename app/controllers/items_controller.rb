@@ -76,7 +76,7 @@ class ItemsController < ApplicationController
       if item.return(current_user)
         format.json { render json: {success: true} }
       else
-        format.json { render json: {success: false }, status: 401}
+        format.json { render json: {error: "error"}}
       end
     end
   end

@@ -25,24 +25,14 @@
               %a{:href => root_path}
                 =fa_icon('home', text: "Home")
                 %span.sr-only (current)
-            %li
-              %a{:href => items_path}=fa_icon('book', text: "Items")
-            - if user_active?
+            - unless user_active?
               %li
-                %a{:href => new_user_loan_path(current_user)}=fa_icon('plus', text: "New loan")
-              %li
-                %a{:href => return_scan_items_path}=fa_icon('check', text: "Return loan")
-            -if admin_signed_in? || user_active?
-              %li
-                %a{:href => loans_path}=fa_icon('calendar', text: "Loans")
+                %a{:href => items_path}=fa_icon('book', text: "Items")
             -if admin_signed_in?
               %li
                 %a{:href => categories_path}=fa_icon('clipboard', text: "Categories")
               %li
                 %a{:href => users_path}=fa_icon('user', text: "Borrowers")
-            - if user_active?
-              %li
-                =link_to "Log out", "#"
           -if admin_signed_in?
             %ul.nav.navbar-nav.navbar-right
               %li
@@ -52,4 +42,17 @@
               %li
                 =link_to "System administration", new_admin_session_path
     #main-container.container
+      -if user_active?
+        .row.vertical-center-row
+          .col-lg-12
+            .row
+              .col-xs-12
+                %h1.text-center.extra-large
+                  .btn-group{"aria-label" => "...", :role => "group"}
+                    =link_to 'Items', items_path, class: 'btn btn-warning btn-xl white'
+                    =link_to 'New loan', new_user_loan_path(current_user), class: 'btn btn-success btn-xl white', method: :get
+                    =link_to 'Return item', return_scan_items_path, class: 'btn btn-primary btn-xl white'
+                  .btn-group{"aria-label" => "...", :role => "group"}
+                    =link_to 'Your loans', loans_path, class: 'btn btn-info btn-xl white', method: :get
+                    =link_to 'Logout', logout_dashboard_index_path, class: 'btn btn-danger btn-xl white'
       = yield

@@ -30,6 +30,11 @@ class ApplicationController < ActionController::Base
     session[:last_active] = Time.now
   end
 
+  def logout_user
+    session[:current_user_id] = nil
+    session[:last_active] = nil
+  end
+
   def user_active?
     unless session[:current_user_id].nil? && session[:last_active].nil?
       last_active = session[:last_active]

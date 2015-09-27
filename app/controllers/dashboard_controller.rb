@@ -24,6 +24,11 @@ class DashboardController < ApplicationController
     end
   end
 
+  def logout
+    logout_user
+    redirect_to root_path
+  end
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params

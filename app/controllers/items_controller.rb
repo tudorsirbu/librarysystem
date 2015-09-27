@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   include ItemsHelper
   skip_before_action :authenticate_admin!, only: [:index, :return, :return_scan]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :session_active?, only: [:return, :return_scan]
+  before_action :session_active?, only: [:return_scan]
 
   # GET /items
   # GET /items.json
@@ -85,7 +85,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       # mark the loan oldest loan for this user and item as returned
-      if item.return(current_user)
+      if user_active? && item.return(current_user)
         format.json { render json: {success: true} }
       else
         format.json { render json: {error: "error"}}

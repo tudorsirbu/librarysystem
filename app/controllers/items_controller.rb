@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
   include ItemsHelper
   skip_before_action :authenticate_admin!, only: [:index, :return, :return_scan]
-
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :session_active?, only: [:return, :return_scan]
 
   # GET /items
   # GET /items.json

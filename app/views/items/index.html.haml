@@ -5,8 +5,8 @@
     %tr
       %th
         = sort_link @search, :title, "Title"
-      -#%th
-        -#= sort_link @search, :barcode, "Barcode"
+      %th
+        = sort_link @search, :barcode, "Barcode"
       %th
         = sort_link @search, :category_id, "Category"
       %th
@@ -19,14 +19,14 @@
   %tbody
     = search_form_for @search,:builder => SimpleForm::FormBuilder do |f|
       = f.input :title_cont,:label => "Title"
-      -#= f.input :barcode_cont,:label => "Barcode"
+      = f.input :barcode_cont,:label => "Barcode"
       = f.input :category_search, collection: Category.all.map {|v| v.to_label}, label: "Category: ", required: false,
             include_blank: true
       = f.submit "Search",class: "btn btn-info search"
     - @items.group("barcode", "items.id").each do |item|
       %tr
         %td= item.title
-        -#%td= item.barcode
+        %td= item.barcode
         %td
           = item.category.name.humanize unless item.category.nil?
         %td= item.publisher

@@ -17,3 +17,8 @@
 //= require turbolinks
 //= require select2
 
+$.extend($.gritter.options, {
+    fade_in_speed: 'slow', // how fast notifications fade in (string or int)
+    fade_out_speed: 1200, // how fast the notices fade out
+    time: 1200 // hang on the screen for...
+});

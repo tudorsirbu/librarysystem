@@ -10,6 +10,7 @@
       %th User
       %th Item
       %th Due date
+      %th Returned on
       -if admin_signed_in?
         %th
         %th
@@ -25,6 +26,12 @@
         %td= loan.user.to_label
         %td= loan.item.to_label
         %td= loan.due_date
+        - if loan.returned_on
+          %td= loan.returned_on
+        -else
+          %th
+            %p
+              Active
         -if admin_signed_in?
           %td= link_to 'Show', loan
           %td= link_to 'Edit', edit_loan_path(loan)

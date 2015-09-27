@@ -32,7 +32,7 @@ class ItemsController < ApplicationController
 
     if @item.nil?
       @item = Item.new(item_params)
-
+      @item.copies = 1
       # get additional information about the item on external APIs
       lookup_by_isbn(@item)
     else

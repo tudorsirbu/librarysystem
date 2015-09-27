@@ -40,7 +40,7 @@
       .row
         .col-xs-12
           %h1.text-center.extra-large
-            Please scan an item to return it
+            Please scan an item to return
         = simple_form_for :loan, url: return_items_path, remote: true do |f|
           .field
             = f.input :barcode, as: :hidden

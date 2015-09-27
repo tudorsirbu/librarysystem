@@ -28,10 +28,16 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    @item = Item.new(item_params)
+    @item = Item.find_by_barcode(item_params[:barcode])
 
-    # get additional information about the item on external APIs
-    lookup_by_isbn(@item)
+    if @item.nil?
+      @item = Item.new(item_params)
+
+      # get additional information about the item on external APIs
+      lookup_by_isbn(@item)
+    else
+      @item.copies += 1
+    end
 
     respond_to do |format|
       if @item.save

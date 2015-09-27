@@ -17,6 +17,10 @@
 //= require turbolinks
 //= require select2
 
+function timedRefresh() {
+    setTimeout("location.reload(true);",30001);
+}
+
 $.extend($.gritter.options, {
     fade_in_speed: 'slow', // how fast notifications fade in (string or int)
     fade_out_speed: 1200, // how fast the notices fade out

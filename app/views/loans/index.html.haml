@@ -42,3 +42,6 @@
 -#= link_to 'New Loan', new_loan_path, { :class=>"btn btn-success btn-lg" }
 :javascript
     $("#q_loan_user_search").select2({allowClear: true, dropdownAutoWidth : true, width: 'resolve'});
+- if user_active?
+  :javascript
+    timedRefresh();

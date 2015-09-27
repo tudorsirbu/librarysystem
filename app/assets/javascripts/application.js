@@ -17,3 +17,6 @@
 //= require turbolinks
 //= require select2
 
+function timedRefresh() {
+    setTimeout("location.reload(true);",30001);
+}

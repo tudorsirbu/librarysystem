@@ -67,7 +67,13 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    @item.destroy
+    if @item.copies == 1
+      @item.destroy
+    else
+      @item.copies -= 1
+      @item.save
+    end
+
     respond_to do |format|
       format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
       format.json { head :no_content }

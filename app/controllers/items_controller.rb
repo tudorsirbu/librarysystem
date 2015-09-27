@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
   include ItemsHelper
   skip_before_action :authenticate_admin!, only: [:index, :return, :return_scan]
-
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :session_active?, only: [:return, :return_scan]
 
   # GET /items
   # GET /items.json
@@ -28,10 +28,16 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    @item = Item.new(item_params)
+    @item = Item.find_by_barcode(item_params[:barcode])
 
-    # get additional information about the item on external APIs
-    lookup_by_isbn(@item)
+    if @item.nil?
+      @item = Item.new(item_params)
+
+      # get additional information about the item on external APIs
+      lookup_by_isbn(@item)
+    else
+      @item.copies += 1
+    end
 
     respond_to do |format|
       if @item.save
@@ -61,7 +67,13 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    @item.destroy
+    if @item.copies == 1
+      @item.destroy
+    else
+      @item.copies -= 1
+      @item.save
+    end
+
     respond_to do |format|
       format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
       format.json { head :no_content }

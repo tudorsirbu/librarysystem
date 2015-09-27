@@ -19,16 +19,17 @@ class Item < ActiveRecord::Base
         end
       end
       items_total = row_item["total"]
-      for i in 1..items_total.to_i
-        item = Item.new
-        item.title = row_item["title"]
-        item.category_id = row_item["category_id"]
-        item.publisher = row_item["publisher"]
-        item.year = row_item["year"]
-        item.barcode = barcode
-        item.location_id = 1
-        item.save(validate: false)
-      end
+      # for i in 1..items_total.to_i
+      item = Item.new
+      item.title = row_item["title"]
+      item.category_id = row_item["category_id"]
+      item.publisher = row_item["publisher"]
+      item.year = row_item["year"]
+      item.barcode = barcode
+      item.copies = row_item["total"].to_i
+      item.location_id = 1
+      item.save(validate: false)
+      # end
 
     end
 
@@ -53,15 +54,8 @@ class Item < ActiveRecord::Base
   end
 
   def total_available
-    items = Item.where(barcode: self.barcode).map{|i|i.id}
-    number_of_avaiblable_items = items.count
-    items.each do |item|
-      loans = Loan.where(item_id: item, returned_on: nil)
-      unless loans.nil? || loans.empty?
-        number_of_avaiblable_items -= loans.count
-      end
-    end
-    number_of_avaiblable_items
+    loans = self.loans.where(returned_on: nil)
+    self.copies - loans.size
   end
 
   def self.category_search(category)

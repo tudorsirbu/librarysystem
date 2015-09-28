@@ -50,7 +50,10 @@ class Item < ActiveRecord::Base
       false
     else
       loans.first.return!
-      self.item_requests.where(user_id: user.id).first.delete
+      requests = self.item_requests.where(user_id: user.id)
+      if requests.first
+        requests.first.delete
+      end
       true
     end
   end

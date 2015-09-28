@@ -12,7 +12,11 @@ $(function() {
             $('#new_loan').submit();
             barcode = '';
         }else{
-            barcode += String.fromCharCode(e.keyCode);
+            if (isFirefox || isIE){
+                barcode = barcode.concat(e.key);
+            }else if (isChrome || isSafari || isOpera){
+                barcode = barcode.concat(String.fromCharCode(e.keyCode));
+            }
         }
     });
 });

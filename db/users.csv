@@ -1,5 +1,8 @@
 id,ucard_no,surname,forename,job_title,date,loans
 2,1613925,"Sam","Booth","IT Assistant",30/8/2015 00:00:00,2
+4,99901999,"Andy","Alpha","Test user",1/1/2050 00:00:00,0
+5,99902999,"Bertie","Bravo","Test user",1/1/2050 00:00:00,0
+6,99903999,"Curtis","Charlie","Test user",1/1/2050 00:00:00,0
 7,1503379,"Heather","Wilson","Resource Co-ordinator",1/1/2050 00:00:00,1
 8,2537869,"John","Twiname","Tutor",1/1/2050 00:00:00,0
 9,2594252,"Your","God","Being God",1/1/2050 00:00:00,1
@@ -36,3 +39,14 @@ id,ucard_no,surname,forename,job_title,date,loans
 40,1556060,"ann","clayton","tutor",1/1/2050 00:00:00,0
 41,1615876,"Beatrix","Ward-Fernandez","Teacher",1/1/2050 00:00:00,0
 42,2595203,"alice","arnold","teacher",1/1/2050 00:00:00,0
+43,1034465,"008034465","hollman","tutor",1/1/2050 00:00:00,0
+44,1300255,"001300255","Macinnes","English Language instructor",1/1/2050 00:00:00,0
+45,1556286,"Lynne","Newcombe","ADoS USIC",1/1/2050 00:00:00,0
+46,1482684,"Suzanne","Priestley","Teacher",1/1/2050 00:00:00,0
+47,1573107,"Timothy","Ball","Teacher",1/1/2050 00:00:00,0
+48,3557652,"Olivene Angela","Aldridge-Tucker","English Language Tutor",1/1/2050 00:00:00,0
+49,2549699,"Rosie","da Costa","Language Teacher",1/1/2050 00:00:00,0
+50,2476085,"Anne","Turner","Teacher",1/1/2050 00:00:00,0
+51,1595465,"Fatma","Tarhuni","English Langauge tutor",1/1/2050 00:00:00,0
+52,2537873,"Richard","Raby","Tutor",1/1/2050 00:00:00,0
+53,3215756,"Kathryn","Aston","English teacher",1/1/2050 00:00:00,0

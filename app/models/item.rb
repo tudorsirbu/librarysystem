@@ -11,9 +11,9 @@ class Item < ActiveRecord::Base
     items = Rails.root.join('db').join('items.csv')
     barcodes = Rails.root.join('db').join('barcodes.csv')
 
-    CSV.foreach(items, :headers => true) do |row_item|
+    CSV.foreach(items, :headers => true,encoding:'windows-1250') do |row_item|
       barcode = nil
-      CSV.foreach(barcodes,:headers => true) do |row_barcode|
+      CSV.foreach(barcodes,:headers => true,encoding:'windows-1250') do |row_barcode|
         if row_item["id"] == row_barcode["item_id"]
           barcode = row_barcode["barcode"]
           break

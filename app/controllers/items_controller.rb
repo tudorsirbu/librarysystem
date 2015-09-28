@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   include ItemsHelper
-  skip_before_action :authenticate_admin!, only: [:index, :return, :return_scan]
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authenticate_admin!, only: [:index, :return, :return_scan, :request_item]
+  before_action :set_item, only: [:show, :edit, :update, :destroy, :request_item, ]
   before_action :session_active?, only: [:return_scan]
 
   # GET /items
@@ -94,7 +94,24 @@ class ItemsController < ApplicationController
   end
 
   def return_scan
+  end
 
+  def request_item
+    request = ItemRequest.new
+    request.user = current_user
+    request.item_id = @item.id
+
+    @item.loans.where(user_id: current_user.id).each do |loan|
+      UserMailer.item_requested(loan).deliver_now
+    end
+
+    respond_to do |format|
+      if user_active? && request.save
+        format.json { render json: {success: true} }
+      else
+        format.json { render json: {error: "error"}}
+      end
+    end
   end
 
   private

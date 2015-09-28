@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :loans
+  has_many :item_requests
   validates_presence_of :ucard_no, :surname, :forename, :job_title, :email
 
   def self.import
@@ -17,6 +18,10 @@ class User < ActiveRecord::Base
   end
   def self.full_name_search(searchstr)
     where("LOWER(users.forename) || LOWER(users.surname) LIKE ?","%#{searchstr.downcase}%")
+  end
+
+  def already_requested?(item)
+    !ItemRequest.where(item_id: item.id, user_id: self.id).empty?
   end
 
   def self.ransackable_scopes(auth_object = nil)

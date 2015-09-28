@@ -3,6 +3,7 @@ class Item < ActiveRecord::Base
   belongs_to :location
   belongs_to :category
   has_many :loans
+  has_many :item_requests
 
   validates_presence_of :barcode, :title, :year, :category
 
@@ -49,6 +50,7 @@ class Item < ActiveRecord::Base
       false
     else
       loans.first.return!
+      self.item_requests.where(user_id: user.id).first.delete
       true
     end
   end

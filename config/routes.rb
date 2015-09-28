@@ -16,6 +16,9 @@ Rails.application.routes.draw do
       get :return_scan
       post :return
     end
+    member do
+      get :request_item
+    end
   end
 
   root to: "dashboard#index"

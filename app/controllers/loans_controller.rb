@@ -58,6 +58,19 @@ class LoansController < ApplicationController
     end
   end
 
+  def send_loan_reminders_due_today
+    puts "hi"
+    loans = Loan.where(returned_on:nil)
+    loans.each do |loan|
+      time = (loan.due_date - Time.zone.now)/3600
+      if time <= 24 && time >= 0
+        UserMailer.loan_expires_today(loan).deliver_now
+      elsif time < 0
+        UserMailer.overdue_item_reminder(loan).deliver_now
+      end
+    end
+  end
+
   # PATCH/PUT /loans/1
   # PATCH/PUT /loans/1.json
   def update

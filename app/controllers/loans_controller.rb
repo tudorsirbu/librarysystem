@@ -1,7 +1,7 @@
 class LoansController < ApplicationController
   before_action :set_loan, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:create]
-  skip_before_action :authenticate_admin!, only: [:new, :create, :show, :destroy,:index]
+  skip_before_action :authenticate_admin!, only: [:new, :create, :show, :destroy,:index,:change_loan_period]
   before_action :session_active?, only: [:new, :create, :show, :destroy]
 
   # GET /loans
@@ -44,7 +44,7 @@ class LoansController < ApplicationController
       @loan = Loan.new
       @loan.item = item
       @loan.user = @user
-      @loan.due_date = (Time.now + 7.day).strftime('%Y-%m-%dT%T')
+      @loan.due_date = (Time.now + 14.day).strftime('%Y-%m-%dT%T')
     end
     respond_to do |format|
       if @loan && @loan.save
@@ -53,6 +53,18 @@ class LoansController < ApplicationController
         @loan = Loan.new
         format.json { render json: {error: "error"}}
         format.html { render :new }
+      end
+    end
+  end
+
+  def change_loan_period
+    loan = Loan.find(params[:id])
+    respond_to do |format|
+      if loan
+        loan.update_attribute(:due_date, params[:due_date])
+        format.js {  render action: 'changed_loan_end_date'}
+      else
+        format.js {  render action: 'not_changed_loan_end_date'}
       end
     end
   end

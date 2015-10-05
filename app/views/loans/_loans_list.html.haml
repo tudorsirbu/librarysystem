@@ -1,5 +1,5 @@
 %tr{id: "#{@loan.id}"}
   %td= @loan.user.to_label
   %td= @loan.item.to_label
-  %td= @loan.due_date
+  %td= select_tag "loan_dates", options_for_select(@loan.return_dates.collect{ |date | [date[1],date[0]]}, @loan.due_date), { 'data-id' => @loan.id}
   %td= button_to 'Cancel Loan', @loan, :method => :delete, class:"btn btn-danger", :data => { :confirm => 'Are you sure?' }, remote: true

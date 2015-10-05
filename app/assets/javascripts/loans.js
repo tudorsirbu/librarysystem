@@ -21,8 +21,20 @@ $(function() {
     });
 });
 
+
+
 $(document).on('ajax:success',"#new_loan", function(xhr, data, response) {
     if (!data.error){
+        $( "select" ).change(function() {
+            var id = $(this).data("id");
+            var due_date = $(this).val();
+            $.ajax({
+                dataType: "script",
+                data: { id: id, due_date : due_date},
+                method: "POST",
+                url: "/loans/"+ id +"/change_loan_period"
+            });
+        });
         return $.gritter.add({
             image: '/assets/success.png',
             title: 'Notification',

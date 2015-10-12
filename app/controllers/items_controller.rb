@@ -101,12 +101,12 @@ class ItemsController < ApplicationController
     request.user = current_user
     request.item_id = @item.id
 
-    @item.loans.where(user_id: current_user.id).each do |loan|
-      UserMailer.item_requested(loan).deliver_now
-    end
 
     respond_to do |format|
       if user_active? && request.save
+        # mail the person with the oldest loan to return the item
+        @item.notify_oldest_lender(current_user.id)
+
         format.json { render json: {success: true} }
       else
         format.json { render json: {error: "error"}}

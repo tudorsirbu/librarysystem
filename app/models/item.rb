@@ -58,6 +58,11 @@ class Item < ActiveRecord::Base
     end
   end
 
+  def notify_oldest_lender(user_id)
+    oldest_loan = self.loans.where(returned_on: nil).where.not(user_id: user_id).order('created_at ASC').first
+    UserMailer.item_requested(oldest_loan).deliver_now unless oldest_loan.nil?
+  end
+
   def total_available
     loans = self.loans.where(returned_on: nil)
     self.copies - loans.size

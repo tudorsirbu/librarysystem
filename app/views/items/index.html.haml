@@ -1,3 +1,25 @@
+:javascript
+  $(document).on('ajax:success',"#request_button", function(xhr, data, response) {
+    if (!data.error){
+        $.gritter.add({
+            image: '/assets/success.png',
+            title: 'Notification',
+            text: 'Item has been requested successfully!',
+            class_name: 'gritter-info gritter-center'
+        });
+    }else{
+       $.gritter.add({
+            image: '/assets/error.png',
+            title: 'Notification',
+            text: 'The item could not be requested!',
+            class_name: 'gritter-info gritter-center'
+        });
+
+    }
+    $("#request_button").parent().html("Item requested!");
+  });
+
+
 %p#notice= notice
 %h1 Listing Items
 %table.table.table-striped
@@ -33,7 +55,7 @@
         %td= item.year
         %td
           -if item.total_available == 0 && user_active? && !current_user.already_requested?(item)
-            =button_to 'Request this item',request_item_item_path(item), class: "btn btn-primary btn-sm", method: :get,disabled:true, remote: true
+            =button_to 'Request this item',request_item_item_path(item), class: "btn btn-primary btn-sm", form: {id: 'request_button'}, method: :get, remote: true
           -elsif item.total_available == 0 && user_active? && current_user.already_requested?(item)
             0 available - Already requested
           -else

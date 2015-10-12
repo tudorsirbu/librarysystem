@@ -19,6 +19,19 @@ module ItemsHelper
       puts "now looking up on outpan"
       lookup_by_isbn_outpan item
     end
+
+    if !item.valid?
+      if !item.title
+        item.title = "Title missing"
+      end
+      if !item.year
+        item.year = "Year missing"
+      end
+      if !item.category_id
+        item.category_id = 1
+      end
+    end
+
   end
 
 

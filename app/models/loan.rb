@@ -11,6 +11,15 @@ class Loan < ActiveRecord::Base
     end
   end
 
+  def return_dates
+    due_date = self.due_date
+    dates = []
+    for i in 1..2
+      dates << [due_date + (i-1)*2.weeks,"#{i*2} weeks - #{due_date + (i-1)*2.weeks}"]
+    end
+    return dates
+  end
+
   def return!
     update_attribute('returned_on', Time.now)
   end

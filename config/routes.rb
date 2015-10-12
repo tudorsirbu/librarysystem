@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   resources :locations
 
 
-  resources :loans, except: [:new, :create,]
+  resources :loans, except: [:new, :create,] do
+    member do
+      post :change_loan_period
+    end
+  end
 
   resources :users do
     resources :loans, only: [:new, :create]

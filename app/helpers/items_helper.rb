@@ -79,7 +79,12 @@ module ItemsHelper
       puts response
       book = response['items'].first['volumeInfo']
       item.title = book['title'] unless book['title'].nil? || book['title'].empty?
-      item.year = Time.parse(book['publishedDate']).year unless  book['publishedDate'].nil? || book['publishedDate'].empty?
+
+      if book['publishedDate'].size == 4
+        item.year = book['publishedDate']
+      else
+        item.year = Time.parse(book['publishedDate']).year unless  book['publishedDate'].nil? || book['publishedDate'].empty?
+      end
       item.category = Category.find_or_create_by(name: book['categories'].first) unless book['categories'].nil? || book['categories'].empty?
       item.thumbnail = book['imageLinks']['smallThumbnail'] unless book['imageLinks']['smallThumbnail'].nil? || book['imageLinks']['smallThumbnail'].empty?
     end

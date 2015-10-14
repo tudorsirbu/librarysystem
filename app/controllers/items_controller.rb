@@ -80,6 +80,34 @@ class ItemsController < ApplicationController
     end
   end
 
+  def new_bulk
+    @item = Item.new
+  end
+
+  def create_bulk
+    barcodes = params["item"]["barcode"].split
+
+    barcodes.each do |b|
+      if !(b =~ /[0-9]+/).nil? && (b.size == 10 || b.size == 13)
+        item = Item.find_by_barcode(b)
+        if item.nil?
+          item = Item.new(barcode: b)
+          item.copies = 1
+
+          # get additional information about the item on external APIs
+          lookup_by_isbn(item)
+        else
+          item.copies += 1
+        end
+
+        item.save
+      end
+    end
+
+    redirect_to items_path
+  end
+
+
   def return
     item = Item.find_by_barcode(params[:loan][:barcode])
 

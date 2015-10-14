@@ -58,7 +58,13 @@ module ItemsHelper
 
       unless result['attributes'].nil? || result['attributes'].empty?
         book_attributes = result['attributes']
-        item.year = Time.parse(book_attributes['Publication Date']).year unless book_attributes['Publication Date'].nil? || book_attributes['Publication Date'].empty?
+        puts "££££ #{book_attributes['Publication Date'].to_s}"
+
+        if book_attributes['Publication Date'].size == 4
+          item.year = book_attributes['Publication Date']
+        else
+          item.year = Time.parse(book_attributes['Publication Date']).year unless book_attributes['Publication Date'].nil? || book_attributes['Publication Date'].empty?
+        end
       end
 
       item.thumbnail = result['images'].first unless result['images'].nil? || result['images'].empty?

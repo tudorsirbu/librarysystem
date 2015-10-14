@@ -1,0 +1,15 @@
+%h1 Bulk import
+= simple_form_for @item, url: create_bulk_items_path do |f|
+  - if @item.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@item.errors.count, "error")
+        prohibited this item from being saved:
+      %ul
+        - @item.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.input :barcode, autofocus: true, as: :text
+  .actions
+    = f.submit :class => "btn btn-info"
+

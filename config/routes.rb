@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     collection do
       get :return_scan
       post :return
+      get :new_bulk
+      post :create_bulk
     end
     member do
       get :request_item

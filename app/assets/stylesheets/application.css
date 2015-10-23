@@ -22,10 +22,6 @@
     display: inline !important;
 }
 
-a:visited{
-    color: white;
-}
-
 .navbar-brand{
     padding: 0;
 }

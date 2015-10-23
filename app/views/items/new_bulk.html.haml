@@ -12,4 +12,8 @@
     = f.input :barcode, autofocus: true, as: :text
   .actions
     = f.submit :class => "btn btn-info"
+%h2 File Bulk Import
+= form_tag fImport_items_path, multipart: true do
+  = file_field_tag :file
+  = submit_tag "fImport"
 

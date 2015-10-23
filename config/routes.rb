@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       post :return
       get :new_bulk
       post :create_bulk
+      post :fImport
     end
     member do
       get :request_item

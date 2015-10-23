@@ -36,6 +36,20 @@ class Item < ActiveRecord::Base
 
   end
 
+  def self.fImportFile(file)
+    CSV.foreach(file.path, headers: true, encoding:'windows-1250') do |row|
+      item = find_by_id(row["id"]) || new
+      item.title = row["Title"]
+      item.publisher = row["Publisher"]
+      item.barcode = row["Barcode"]
+      item.year = row["Year"] || 9999
+      item.category_id = row["Category"].to_i
+      item.location_id = 1
+      item.copies = row["Quantity"].to_i
+      item.save(validate: false)
+    end
+  end
+
   def to_label
     if self.category_id
       "#{self.title} - #{self.barcode} - #{self.category.name}"

@@ -50,6 +50,13 @@ class ItemsController < ApplicationController
     end
   end
 
+  def fImport
+
+    Item.fImportFile(params[:file])
+    redirect_to items_url, notice: 'Items imported.'
+
+  end
+
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json
   def update

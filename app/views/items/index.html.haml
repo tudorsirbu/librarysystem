@@ -75,6 +75,7 @@
 %br/
 - if admin_signed_in?
   = link_to 'New Item', new_item_path, { :class=>"btn btn-success btn-lg" }
+  = link_to 'Bulk Import', new_bulk_items_path, { :class=> "btn btn-success btn-lg" }
 
 :javascript
     $("#q_category_search").select2({allowClear: true, dropdownAutoWidth : true, width: 'resolve'});

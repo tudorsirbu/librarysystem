@@ -46,7 +46,12 @@ module ItemsHelper
     unless result.nil?
       puts result.to_s
       item.title = result.title unless result.title.nil?
-      item.year = Time.parse(result.publish_date).year unless result.publish_date.nil?
+
+      if result.publish_date.to_s.size == 4
+        item.year = result.publish_date
+      else
+        item.year = Time.parse(result.publish_date).year unless result.publish_date.nil? || result.publish_date.empty?
+      end
       # item.publisher = result.publishers.map{|p| }
     end
   end

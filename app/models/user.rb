@@ -16,6 +16,18 @@ class User < ActiveRecord::Base
       user.save(validate: false)
     end
   end
+
+  def self.active_users
+    @active_users = []
+    User.all.each do |user|
+      @loan = Loan.where("user_id = ? AND created_at > ?",user.id, Time.now - 14.days).size
+      if @loan > 0
+        @active_users.push(user)
+      end
+    end
+    return @active_users.size
+  end
+
   def self.full_name_search(searchstr)
     where("LOWER(users.forename) || LOWER(users.surname) LIKE ?","%#{searchstr.downcase}%")
   end

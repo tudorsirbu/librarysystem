@@ -12,6 +12,16 @@
     = search_form_for @search,:builder => SimpleForm::FormBuilder do |f|
       = f.input :full_name_search,:label => "Name"
       = f.submit "Search",class: "btn btn-info search"
+    .btn-group.pull-right{"aria-label" => "...", :role => "group"}
+      %button.btn.btn-primary{:type => "button"}
+        Total Users
+        %span.badge #{User.all.count}
+      %button.btn.btn-info{:type => "button"}
+        Active Users
+        %span.badge #{User.active_users}
+      %button.btn.btn-warning{:type => "button"}
+        Inactive Users
+        %span.badge #{User.all.count - User.active_users}
     - @users.each do |user|
       %tr
         %td= user.ucard_no

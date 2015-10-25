@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :item_request, only: [:index]
+
   root to: "dashboard#index"
 
   resources :dashboard, only: [:index, :menu] do

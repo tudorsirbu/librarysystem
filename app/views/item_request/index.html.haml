@@ -1,0 +1,20 @@
+.well.well-sm
+  %h3
+    =fa_icon('question-circle', text: 'Items currently requested')
+
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Item
+      %th Requested on
+
+  %tbody
+    - @requests.each do |request|
+      %tr
+        %td= request.user.to_label
+        %td= request.item.title
+        %td= request.created_at.to_formatted_s(:long)
+
+

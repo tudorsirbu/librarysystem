@@ -33,6 +33,8 @@
                 %a{:href => categories_path}=fa_icon('clipboard', text: "Categories")
               %li
                 %a{:href => users_path}=fa_icon('user', text: "Borrowers")
+              %li
+                %a{:href =>  item_request_index_path}=fa_icon('question-circle', text: "Requests")
           -if admin_signed_in?
             %ul.nav.navbar-nav.navbar-right
               %li

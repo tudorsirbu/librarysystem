@@ -72,8 +72,12 @@ class Item < ActiveRecord::Base
     joins(:category).where("LOWER(categories.name) LIKE ?","%#{category.downcase}%")
   end
 
+  def self.location_search(location)
+    joins(:location).where("CONCAT(locations.building, ' - ',locations.room) LIKE ?","%#{location}%")
+  end
+
   private
   def self.ransackable_scopes(auth_object = nil)
-    [:category_search]
+    [:category_search,:location_search]
   end
 end

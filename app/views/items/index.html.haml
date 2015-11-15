@@ -49,6 +49,8 @@
         =f.input :barcode_cont,:label => "Barcode"
       = f.input :category_search, collection: Category.all.map {|v| v.to_label}, label: "Category: ", required: false,
             include_blank: true
+      = f.input :location_search, collection: Location.all.map {|v| v.to_label}, label: "Location: ", required: false,
+            include_blank: true
       = f.submit "Search",class: "btn btn-info search"
     - @items.group("barcode", "items.id").each do |item|
       %tr

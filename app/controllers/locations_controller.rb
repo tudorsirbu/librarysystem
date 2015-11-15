@@ -4,7 +4,8 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
-    @locations = Location.all
+    @search = Location.ransack(params[:q])
+    @locations  = @search.result.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /locations/1

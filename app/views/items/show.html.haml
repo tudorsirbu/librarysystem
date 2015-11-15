@@ -7,7 +7,10 @@
   = @item.barcode
 %p
   %strong Category:
-  = @item.category_id
+  = @item.category.to_label
+%p
+  %strong Location:
+  = @item.location.to_label
 %p
   %strong Publisher:
   = @item.publisher

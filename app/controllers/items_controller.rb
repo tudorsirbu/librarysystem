@@ -86,12 +86,14 @@ class ItemsController < ApplicationController
 
   def create_bulk
     barcodes = params["item"]["barcode"].split
+    location = params["item"]["location_id"].to_i
 
     barcodes.each do |b|
       if !(b =~ /[0-9]+/).nil? && (b.size == 10 || b.size == 13)
         item = Item.find_by_barcode(b)
         if item.nil?
           item = Item.new(barcode: b)
+          item.location_id = location
           item.copies = 1
 
           # get additional information about the item on external APIs

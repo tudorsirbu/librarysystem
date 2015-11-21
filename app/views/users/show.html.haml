@@ -1,16 +1,40 @@
 %p#notice= notice
-%p
-  %strong Ucard no:
-  = @user.ucard_no
-%p
-  %strong Surname:
-  = @user.surname
-%p
-  %strong Forename:
-  = @user.forename
-%p
-  %strong Job title:
-  = @user.job_title
-= link_to 'Edit', edit_user_path(@user)
-|
-= link_to 'Back', users_path
+.panel.panel-default.pull-left
+  .panel-heading
+    %h3.panel-title User details
+  .panel-body
+    %p
+      %strong Ucard no:
+      = @user.ucard_no
+    %p
+      %strong Surname:
+      = @user.surname
+    %p
+      %strong Forename:
+      = @user.forename
+    %p
+      %strong Job title:
+      = @user.job_title
+- if @loans.size !=0
+  .panel.panel-default.pull-left
+    .panel-heading
+      %h3.panel-title User history
+    .panel-body{style:"max-height: 300px;overflow-y: scroll;"}
+      %table.table.table-striped
+        %thead
+          %tr
+            %th Title
+            %th Borrowed on
+            %th Due on
+            %th Returned on
+        %tbody
+          - @loans.each do |loan|
+            %tr
+              %td= loan.item.title
+              %td= loan.created_at.strftime('%Y-%m-%d %T')
+              %td= loan.due_date.strftime('%Y-%m-%d %T')
+              - if loan.returned_on.nil?
+                %td
+                  %b Active
+              - else
+                %td= loan.returned_on.strftime('%Y-%m-%d %T')

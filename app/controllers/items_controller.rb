@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   include ItemsHelper
-  skip_before_action :authenticate_admin!, only: [:index, :return, :return_scan, :request_item]
+  skip_before_action :authenticate_admin!, only: [:index,:show, :return, :return_scan, :request_item]
   before_action :set_item, only: [:show, :edit, :update, :destroy, :request_item, ]
   before_action :session_active?, only: [:return_scan]
 
@@ -14,6 +14,7 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+    @loans = Loan.where(item_id: @item.id).order( 'returned_on DESC' )
   end
 
   # GET /items/new

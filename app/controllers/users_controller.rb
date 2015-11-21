@@ -27,7 +27,14 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
+    @user = User.find_by_email(user_params[:email])
+
+    if @user
+      @user.ucard_no = user_params[:ucard_no]
+    else
+      @user = User.new(user_params)
+    end
+
 
     respond_to do |format|
       if @user.save

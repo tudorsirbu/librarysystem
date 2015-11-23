@@ -1,19 +1,58 @@
 %p#notice= notice
-%p
-  %strong Title:
-  = @item.title
-%p
-  %strong Isbn:
-  = @item.barcode
-%p
-  %strong Category:
-  = @item.category_id
-%p
-  %strong Publisher:
-  = @item.publisher
-%p
-  %strong Year:
-  = @item.year
-= link_to 'Edit', edit_item_path(@item)
-|
-= link_to 'Back', items_path
+.panel.panel-default.pull-left
+  .panel-heading
+    %h3.panel-title Item details
+  .panel-body
+    %p
+      %strong Title:
+      = @item.title
+    %p
+      %strong Isbn:
+      = @item.barcode
+    %p
+      %strong Category:
+      = @item.category.to_label
+    %p
+      %strong Location:
+      = @item.location.to_label
+    %p
+      %strong Publisher:
+      = @item.publisher
+    %p
+      %strong Year:
+      = @item.year
+    %p
+      %strong Copies:
+      = @item.copies
+-if @loans.size !=0
+  .panel.panel-default.pull-left
+    .panel-heading
+      %h3.panel-title Item history
+    .panel-body{style:"max-height: 300px;overflow-y: scroll;"}
+      %table.table.table-striped
+        %thead
+          %tr
+            %th Name
+            %th Borrowed on
+            %th Due on
+            %th Returned on
+        %tbody
+          - @loans.each do |loan|
+            -if admin_signed_in?
+              %tr
+                %td= loan.user.to_label
+                %td= loan.created_at.strftime('%Y-%m-%d %T')
+                %td= loan.due_date.strftime('%Y-%m-%d %T')
+                - if loan.returned_on.nil?
+                  %td
+                    %b Active
+                - else
+                  %td= loan.returned_on.strftime('%Y-%m-%d %T')
+            -else
+              - if loan.returned_on.nil?
+                %tr
+                  %td= loan.user.to_label
+                  %td= loan.created_at.strftime('%Y-%m-%d %T')
+                  %td= loan.due_date.strftime('%Y-%m-%d %T')
+                  %td
+                    %b Active

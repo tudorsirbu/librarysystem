@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   include ItemsHelper
-  skip_before_action :authenticate_admin!, only: [:index, :return, :return_scan, :request_item]
+  skip_before_action :authenticate_admin!, only: [:index,:show, :return, :return_scan, :request_item]
   before_action :set_item, only: [:show, :edit, :update, :destroy, :request_item, ]
   before_action :session_active?, only: [:return_scan]
 
@@ -14,6 +14,7 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+    @loans = Loan.where(item_id: @item.id).order( 'returned_on DESC' )
   end
 
   # GET /items/new
@@ -36,7 +37,7 @@ class ItemsController < ApplicationController
       # get additional information about the item on external APIs
       lookup_by_isbn(@item)
     else
-      @item.copies += 1
+      @item.copies += item_params[:copies].to_i
     end
 
     respond_to do |format|
@@ -93,12 +94,14 @@ class ItemsController < ApplicationController
 
   def create_bulk
     barcodes = params["item"]["barcode"].split
+    location = params["item"]["location_id"].to_i
 
     barcodes.each do |b|
       if !(b =~ /[0-9]+/).nil? && (b.size == 10 || b.size == 13)
         item = Item.find_by_barcode(b)
         if item.nil?
           item = Item.new(barcode: b)
+          item.location_id = location
           item.copies = 1
 
           # get additional information about the item on external APIs
@@ -157,6 +160,6 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:title, :barcode, :category_id, :location_id, :publisher, :year)
+      params.require(:item).permit(:title, :barcode, :category_id, :location_id, :publisher, :year, :copies)
     end
 end

@@ -10,6 +10,7 @@
           %li= message
   .field
     = f.input :barcode, autofocus: true, as: :text
+    = f.input :location_id, collection: Location.all, label: "Location: "
   .actions
     = f.submit :class => "btn btn-info"
 %h2 File Bulk Import

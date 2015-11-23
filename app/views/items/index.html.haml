@@ -40,8 +40,9 @@
       -if admin_signed_in?
         %th
           = sort_link @search, :created_at, "Added on"
+      %th
       - if admin_signed_in?
-        %th{:colspan => "3"}
+        %th{:colspan => "2"}
   %tbody
     = search_form_for @search,:builder => SimpleForm::FormBuilder do |f|
       = f.input :title_cont,:label => "Title"
@@ -49,11 +50,13 @@
         =f.input :barcode_cont,:label => "Barcode"
       = f.input :category_search, collection: Category.all.map {|v| v.to_label}, label: "Category: ", required: false,
             include_blank: true
+      = f.input :location_search, collection: Location.all.map {|v| v.to_label}, label: "Location: ", required: false,
+            include_blank: true
       = f.submit "Search",class: "btn btn-info search"
     - @items.group("barcode", "items.id").each do |item|
       %tr
         %td= item.title
-        -if Rails.env.development?
+        -if Rails.env.development? || admin_signed_in?
           %td= item.barcode
         %td
           = item.category.name.humanize unless item.category.nil?
@@ -68,9 +71,10 @@
             = item.total_available
         - if admin_signed_in?
           %td=item.created_at
-          %td= button_to 'Show', item, class: "btn btn-primary btn-sm", method: :get
+        %td= button_to 'Show Info', item, class: "btn btn-primary btn-sm", method: :get
+        - if admin_signed_in?
           %td= button_to 'Edit', edit_item_path(item), class: "btn btn-success btn-sm", method: :get
-          %td= button_to 'Delete', item, method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-danger btn-sm"
+          %td= button_to 'Delete', item, method: :delete, data: { confirm: 'Are you sure you want to delete a copy of this item?' },:class=>"btn btn-danger btn-sm"
 = will_paginate @items
 %br/
 - if admin_signed_in?

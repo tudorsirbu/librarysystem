@@ -14,5 +14,6 @@
     = f.input :year
     = f.input :barcode, disabled:true
     = f.input :location_id, collection: Location.all, label: "Location: ",:selected => @item.location_id
+    = f.input :copies
   .actions
     = f.submit :class => "btn btn-info"

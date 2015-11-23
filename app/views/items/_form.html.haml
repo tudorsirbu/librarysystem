@@ -10,5 +10,6 @@
   .field
     = f.input :barcode, autofocus: true
     = f.input :location_id, collection: Location.all, label: "Location: "
+    = f.input :copies
   .actions
     = f.submit :class => "btn btn-info"

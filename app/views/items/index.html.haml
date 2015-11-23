@@ -27,7 +27,7 @@
     %tr
       %th
         = sort_link @search, :title, "Title"
-      -if Rails.env.development?
+      -if Rails.env.development? || admin_signed_in?
         %th
           = sort_link @search, :barcode, "Barcode"
       %th
@@ -46,7 +46,7 @@
   %tbody
     = search_form_for @search,:builder => SimpleForm::FormBuilder do |f|
       = f.input :title_cont,:label => "Title"
-      -if Rails.env.development?
+      -if Rails.env.development? || admin_signed_in?
         =f.input :barcode_cont,:label => "Barcode"
       = f.input :category_search, collection: Category.all.map {|v| v.to_label}, label: "Category: ", required: false,
             include_blank: true

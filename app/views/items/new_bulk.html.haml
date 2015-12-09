@@ -16,5 +16,6 @@
 %h2 File Bulk Import
 = form_tag fImport_items_path, multipart: true do
   = file_field_tag :file
-  = submit_tag "fImport"
+  %br
+  = submit_tag "File Import", :class => "btn btn-info"
 

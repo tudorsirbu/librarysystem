@@ -18,7 +18,7 @@
 //= require select2
 
 function timedRefresh() {
-    setTimeout("location.reload(true);",30001);
+    setTimeout("window.location.href = '/';", 30001);
 }
 
 var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;

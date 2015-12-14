@@ -1,3 +1,6 @@
+:javascript
+  timedRefresh();
+
 = simple_form_for(@user) do |f|
   = f.input :ucard_no, readonly: @user.ucard_no.nil? ? false : true
   = f.input :forename, autofocus: true

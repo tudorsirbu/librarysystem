@@ -29,9 +29,8 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    @item = Item.find_by_barcode(item_params[:barcode])
-
-    if @item.nil?
+    @item = Item.where(barcode: item_params[:barcode], location_id: item_params[:location_id]).last
+    if @item.nil? || (@item.location_id.to_i != item_params[:location_id].to_i)
       @item = Item.new(item_params)
       @item.copies = item_params[:copies].to_i
       # get additional information about the item on external APIs

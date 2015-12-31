@@ -8,8 +8,8 @@
         - @item.errors.full_messages.each do |message|
           %li= message
   .field
-    = f.input :barcode, autofocus: true
+    = f.input :barcode
     = f.input :location_id, collection: Location.all, label: "Location: "
-    = f.input :copies
+    = f.input :copies, :input_html => { value: 1 }
   .actions
     = f.submit :class => "btn btn-info"

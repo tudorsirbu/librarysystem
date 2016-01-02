@@ -11,6 +11,11 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :loans, only: [:new, :create]
+    collection do
+      post 'active'
+      post 'inactive'
+      post 'total'
+    end
   end
 
   resources :categories

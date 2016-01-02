@@ -1,36 +1,19 @@
 %p#notice= notice
 %h1 Listing Users
-%table.table.table-striped
-  %thead
-    %tr
-      %th Ucard no
-      %th Surname
-      %th Forename
-      %th Job title
-      %th{:colspan => "3"}
-  %tbody
-    = search_form_for @search,:builder => SimpleForm::FormBuilder do |f|
-      = f.input :full_name_search,:label => "Name"
-      = f.submit "Search",class: "btn btn-info search"
-    .btn-group.pull-right{"aria-label" => "...", :role => "group"}
-      %button.btn.btn-primary{:type => "button"}
-        Total Users
-        %span.badge #{User.all.count}
-      %button.btn.btn-info{:type => "button"}
-        Active Users
-        %span.badge #{User.active_users}
-      %button.btn.btn-warning{:type => "button"}
-        Inactive Users
-        %span.badge #{User.all.count - User.active_users}
-    - @users.each do |user|
-      %tr
-        %td= user.ucard_no
-        %td= user.surname
-        %td= user.forename
-        %td= user.job_title
-        %td= link_to 'Show Info', user, { :class=>"btn btn-primary btn-sm" }
-        %td= link_to 'Edit', edit_user_path(user), { :class=>"btn btn-success btn-sm" }
-        %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-danger btn-sm"
-= will_paginate @users
+= search_form_for @search,:builder => SimpleForm::FormBuilder do |f|
+  = f.input :full_name_search,:label => "Name"
+  = f.submit "Search",class: "btn btn-info search"
+  .btn-group.pull-right{"aria-label" => "...", :role => "group"}
+    = link_to  total_users_path, {method: :post, class: 'btn btn-info',remote:true, type: :button} do
+      Total Users
+      %span.badge #{User.all.count}
+    = link_to active_users_path, {method: :post, class: 'btn btn-success',remote:true} do
+      Active Users
+      %span.badge #{User.active_users.size}
+    = link_to inactive_users_path, {method: :post, class: 'btn btn-warning',remote:true} do
+      Inactive Users
+      %span.badge #{User.inactive_users.size}
+%table.table.table-striped{id:'users_list'}
+  = render 'users/users_table', users: @users, users_type: 'total'
 %br/
 = link_to 'New User', new_user_path

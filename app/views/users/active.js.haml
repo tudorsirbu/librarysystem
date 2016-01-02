@@ -1,0 +1,1 @@
+$("#users_list").html("#{escape_javascript(render 'users/users_table', users: User.active_users, users_type: 'active')}");

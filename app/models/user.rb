@@ -25,7 +25,18 @@ class User < ActiveRecord::Base
         @active_users.push(user)
       end
     end
-    return @active_users.size
+    return @active_users
+  end
+
+  def self.inactive_users
+    @inactive_users = []
+    User.all.each do |user|
+      @loan = Loan.where("user_id = ? AND created_at > ?",user.id, Time.now - 14.days).size
+      if @loan == 0
+        @inactive_users.push(user)
+      end
+    end
+    return @inactive_users
   end
 
   def self.full_name_search(searchstr)

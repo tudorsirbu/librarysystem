@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @search = User.ransack(params[:q])
-    @users  = @search.result.paginate(:page => params[:page], :per_page => 10)
+    @users  = @search.result
   end
 
   # GET /users/1
@@ -25,6 +25,25 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def total
+    @users = User.all
+    respond_to do |format|
+      format.js
+    end
+  end
+  def active
+    @users = User.active_users
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def inactive
+    @users = User.inactive_users
+    respond_to do |format|
+      format.js
+    end
+  end
   # POST /users
   # POST /users.json
   def create

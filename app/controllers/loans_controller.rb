@@ -9,10 +9,10 @@ class LoansController < ApplicationController
   def index
     if user_active?
       @search = Loan.ransack({"loan_user_search"=> current_user.id})
-      @loans  = @search.result.order("returned_on DESC").paginate(:page => params[:page], :per_page => 25)
+      @loans  = @search.result.order(:due_date).paginate(:page => params[:page], :per_page => 25)
     elsif admin_signed_in?
       @search = Loan.ransack(params[:q])
-      @loans  = @search.result.order("returned_on DESC").paginate(:page => params[:page], :per_page => 25)
+      @loans  = @search.result.order(:user_id,:due_date).paginate(:page => params[:page], :per_page => 25)
     else
       session_active?
     end

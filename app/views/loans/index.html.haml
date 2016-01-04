@@ -13,8 +13,6 @@
       %th Returned on
       -if admin_signed_in?
         %th
-        %th
-        %th
 
   %tbody
     -if admin_signed_in?
@@ -22,8 +20,12 @@
         = f.input :loan_user_search,:label => "User", collection: User.all,include_blank: true
         = f.submit "Search",class: "btn btn-info search"
     - @loans.each do |loan|
-      %tr
-        %td= loan.user.to_label
+      - if loan.overdue
+        - info= 'danger'
+      - else
+        - info= ''
+      %tr{class:info}
+        %td= link_to loan.user.to_label, user_path(loan.user_id)
         %td= loan.item.to_label
         %td= loan.due_date
         - if loan.returned_on
@@ -32,11 +34,10 @@
           %th
             %p
               Active
-        -if admin_signed_in?
-          %td= link_to 'Show', loan
-          %td= link_to 'Edit', edit_loan_path(loan)
-          %td= link_to 'Destroy', loan, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
+        -if admin_signed_in? && loan.returned_on.nil?
+          %td= link_to 'Return', return_item_path(loan.item.barcode,:user => loan.user), :method => :post, :data => { :confirm => 'Are you sure?' }
+        -else
+          %td
 %br
 = will_paginate @loans
 -#= link_to 'New Loan', new_loan_path, { :class=>"btn btn-success btn-lg" }

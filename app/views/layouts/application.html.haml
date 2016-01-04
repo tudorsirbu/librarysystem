@@ -33,8 +33,15 @@
                 %a{:href => categories_path}=fa_icon('clipboard', text: "Categories")
               %li
                 %a{:href => locations_path}=fa_icon('building', text: "Locations")
-              %li
-                %a{:href => users_path}=fa_icon('user', text: "Borrowers")
+              %li.dropdown
+                %a.dropdown-toggle{'data-toggle' => 'dropdown'}
+                  =fa_icon('newspaper-o', text: "Reports")
+                  %span.caret
+                %ul#dashboard-dropdown.dropdown-menu{role: 'dashboardMenu'}
+                  %li
+                    %a{:href => users_path}=fa_icon('user', text: "Borrowers")
+                  %li
+                    %a{:href => loans_path}=fa_icon('calendar', text: "Loans")
               %li
                 %a{:href =>  item_request_index_path}=fa_icon('question-circle', text: "Requests")
           -if admin_signed_in?

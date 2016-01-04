@@ -59,7 +59,7 @@ class Item < ActiveRecord::Base
   end
 
   def return(user)
-    loans = self.loans.where(returned_on: nil, user: user).order('created_at ASC')
+    loans = self.loans.where(returned_on: nil, user: user).order('due_date')
     if loans.nil? || loans.empty?
       false
     else

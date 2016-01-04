@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       post :fImport
     end
     member do
+      post :return
       get :request_item
     end
   end

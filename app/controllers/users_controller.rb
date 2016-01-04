@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @loans = Loan.where(user_id: @user.id).order( 'returned_on DESC' )
+    @loans = Loan.where(user_id: @user.id).order( 'due_date' )
   end
 
   # GET /users/new

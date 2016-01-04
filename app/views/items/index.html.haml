@@ -31,7 +31,7 @@
         %th
           = sort_link @search, :barcode, "Barcode"
         %th
-          = sort_link @search, :location, "Location"
+          = sort_link @search, :location_id, "Location"
       %th
         = sort_link @search, :category_id, "Category"
       %th
@@ -60,7 +60,10 @@
         %td= item.title
         -if Rails.env.development? || admin_signed_in?
           %td= item.barcode
-          %td= item.location.to_label
+          - if item.location
+            %td= item.location.to_label
+          -else
+            %td Location missing
         %td
           = item.category.name.humanize unless item.category.nil?
         %td= item.publisher

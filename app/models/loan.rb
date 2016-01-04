@@ -11,6 +11,14 @@ class Loan < ActiveRecord::Base
     end
   end
 
+  def overdue
+    if self.due_date < Time.now && self.returned_on.nil?
+      return true
+    else
+      return false
+    end
+  end
+
   def return_dates
     due_date = self.due_date
     dates = []

@@ -31,7 +31,11 @@
             %th Returned on
         %tbody
           - @loans.each do |loan|
-            %tr
+            - if loan.overdue
+              - info= 'danger'
+            - else
+              - info= ''
+            %tr{class:info}
               %td= loan.item.title
               -if admin_signed_in?
                 %td= loan.item.barcode

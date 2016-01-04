@@ -118,12 +118,18 @@ class ItemsController < ApplicationController
 
 
   def return
-    item = Item.find_by_barcode(params[:loan][:barcode])
+    if params.has_key?(:loan)
+      item = Item.find_by_barcode(params[:loan][:barcode])
+    else
+      item = Item.find_by_barcode(params[:id])
+    end
 
     respond_to do |format|
       # mark the loan oldest loan for this user and item as returned
       if user_active? && item.return(current_user)
         format.json { render json: {success: true, error:nil} }
+      elsif params.has_key?(:user) && item.return(User.find(params[:user]))
+        format.html {redirect_to loans_path}
       else
         format.json { render json: {error: "error"}}
       end

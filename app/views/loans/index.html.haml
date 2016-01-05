@@ -10,7 +10,8 @@
       %th User
       %th Item
       %th Due date
-      %th Returned on
+      %th
+        = sort_link @search, :returned_on, "Returned on"
       -if admin_signed_in?
         %th
 
@@ -33,7 +34,7 @@
         -else
           %th
             %p
-              Active
+              Not Returned
         -if admin_signed_in? && loan.returned_on.nil?
           %td= link_to 'Return', return_item_path(loan.item.barcode,:user => loan.user), :method => :post, :data => { :confirm => 'Are you sure?' }
         -else

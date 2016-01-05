@@ -51,7 +51,8 @@ class Item < ActiveRecord::Base
   end
 
   def to_label
-    if self.category_id
+    loan = self.loans.where(category_id: nil)
+    if self.category_id && !loan
       "#{self.title} - #{self.barcode} - #{self.category.name}"
     else
       "#{self.title} - #{self.barcode}"

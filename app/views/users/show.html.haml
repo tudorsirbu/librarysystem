@@ -43,6 +43,6 @@
               %td= loan.due_date.strftime('%Y-%m-%d %T')
               - if loan.returned_on.nil?
                 %td
-                  %b Active
+                  %b Not Returned
               - else
                 %td= loan.returned_on.strftime('%Y-%m-%d %T')

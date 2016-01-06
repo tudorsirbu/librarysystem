@@ -27,9 +27,9 @@
       - else
         - info= ''
       %tr{class:info}
-        %td= link_to loan.user.to_label, user_path(loan.user_id)
-        %td= loan.item.barcode
-        %td= link_to loan.item.title, item_path(loan.item_id)
+        %td= link_to loan.user.to_label, user_path(loan.user_id) unless loan.user.nil?
+        %td= loan.item.barcode unless loan.item.nil?
+        %td= link_to loan.item.title, item_path(loan.item_id) unless loan.item.nil?
         %td= loan.due_date
         - if loan.returned_on
           %td= loan.returned_on
@@ -38,7 +38,7 @@
             %p
               Not Returned
         -if admin_signed_in? && loan.returned_on.nil?
-          %td= link_to 'Return', return_item_path(loan.item.barcode,:user => loan.user), :method => :post, :data => { :confirm => 'Are you sure?' }
+          %td= link_to 'Return', return_item_path(loan.item.barcode,:user => loan.user), :method => :post, :data => { :confirm => 'Are you sure?' } unless loan.item.nil?
         -else
           %td
 %br

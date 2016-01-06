@@ -46,7 +46,7 @@
           - @loans.each do |loan|
             -if admin_signed_in?
               %tr
-                %td= loan.user.to_label
+                %td= loan.user.to_label unless loan.user.nil?
                 %td= loan.created_at.strftime('%Y-%m-%d %T')
                 %td= loan.due_date.strftime('%Y-%m-%d %T')
                 - if loan.returned_on.nil?

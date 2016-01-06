@@ -11,10 +11,16 @@
       = @item.barcode
     %p
       %strong Category:
-      = @item.category.to_label
+      -if @item.category
+        = @item.category.to_label
+      - else
+        %strong Category Missing
     %p
       %strong Location:
-      = @item.location.to_label
+      - if @item.location
+        = @item.location.to_label
+      - else
+        %strong Location missing
     %p
       %strong Publisher:
       = @item.publisher

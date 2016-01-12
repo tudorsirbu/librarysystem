@@ -63,12 +63,12 @@ module ItemsHelper
 
       unless result['attributes'].nil? || result['attributes'].empty?
         book_attributes = result['attributes']
-        puts "££££ #{book_attributes['Publication Date'].to_s}"
+        puts book_attributes['Publication Date'][-4,4]
 
         if book_attributes['Publication Date'].size == 4
           item.year = book_attributes['Publication Date']
         else
-          item.year = Time.parse(book_attributes['Publication Date']).year unless book_attributes['Publication Date'].nil? || book_attributes['Publication Date'].empty?
+          item.year = book_attributes['Publication Date'][-4,4] unless book_attributes['Publication Date'].nil? || book_attributes['Publication Date'].empty?
         end
       end
 

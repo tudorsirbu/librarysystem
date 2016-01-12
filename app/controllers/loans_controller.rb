@@ -75,7 +75,7 @@ class LoansController < ApplicationController
     loans.each do |loan|
       time = (loan.due_date - Time.zone.now)/3600
       if time <= 24 && time >= 0
-        UserMailer.loan_expires_today(loan).deliver_now
+        UserMailer.loan_expires_soon(loan).deliver_now
       elsif time < 0
         UserMailer.overdue_item_reminder(loan).deliver_now
       end

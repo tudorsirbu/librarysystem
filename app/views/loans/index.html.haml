@@ -22,25 +22,26 @@
         = f.input :loan_user_search,:label => "User", collection: User.all,include_blank: true
         = f.submit "Search",class: "btn btn-info search"
     - @loans.each do |loan|
-      - if loan.overdue
-        - info= 'danger'
-      - else
-        - info= ''
-      %tr{class:info}
-        %td= link_to loan.user.to_label, user_path(loan.user_id) unless loan.user.nil?
-        %td= loan.item.barcode unless loan.item.nil?
-        %td= link_to loan.item.title, item_path(loan.item_id) unless loan.item.nil?
-        %td= loan.due_date
-        - if loan.returned_on
-          %td= loan.returned_on
-        -else
-          %th
-            %p
-              Not Returned
-        -if admin_signed_in? && loan.returned_on.nil?
-          %td= link_to 'Return', return_item_path(loan.item.barcode,:user => loan.user), :method => :post, :data => { :confirm => 'Are you sure?' } unless loan.item.nil?
-        -else
-          %td
+      - if loan.item
+        - if loan.overdue
+          - info= 'danger'
+        - else
+          - info= ''
+        %tr{class:info}
+          %td= link_to loan.user.to_label, user_path(loan.user_id) unless loan.user.nil?
+          %td= loan.item.barcode unless loan.item.nil?
+          %td= link_to loan.item.title, item_path(loan.item_id) unless loan.item.nil?
+          %td= loan.due_date
+          - if loan.returned_on
+            %td= loan.returned_on
+          -else
+            %th
+              %p
+                Not Returned
+          -if admin_signed_in? && loan.returned_on.nil?
+            %td= link_to 'Return', return_item_path(loan.item.barcode,:user => loan.user), :method => :post, :data => { :confirm => 'Are you sure?' } unless loan.item.nil?
+          -else
+            %td
 %br
 = will_paginate @loans
 -#= link_to 'New Loan', new_loan_path, { :class=>"btn btn-success btn-lg" }

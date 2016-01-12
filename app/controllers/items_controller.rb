@@ -76,6 +76,7 @@ class ItemsController < ApplicationController
   def destroy
     if @item.copies == 1
       @item.destroy
+
     else
       @item.copies -= 1
       @item.save

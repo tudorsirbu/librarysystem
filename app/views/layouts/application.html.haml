@@ -44,6 +44,8 @@
                     %a{:href => loans_path}=fa_icon('calendar', text: "Loans")
               %li
                 %a{:href =>  item_request_index_path}=fa_icon('question-circle', text: "Requests")
+              %li
+                %a{:href =>  settings_path}=fa_icon('cogs', text: "Settings")
           -if admin_signed_in?
             %ul.nav.navbar-nav.navbar-right
               %li

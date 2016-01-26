@@ -1,0 +1,8 @@
+%h2
+  = 'Setting'
+
+= simple_form_for save_settings_path, url: save_settings_path do |f|
+  = f.error_notification
+  = f.input :location,  input_html: {value: (@settings if !@settings.nil?)}
+  = f.submit 'Save', class: "btn btn-lg btn-success"
+

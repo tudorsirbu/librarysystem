@@ -18,6 +18,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :settings, only: [:index] do
+    collection do
+      post :save, as: 'save'
+    end
+  end
+
   resources :categories
 
   resources :items do

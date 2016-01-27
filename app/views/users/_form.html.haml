@@ -2,7 +2,7 @@
   timedRefresh();
 
 = simple_form_for(@user) do |f|
-  = f.input :ucard_no, readonly: @user.ucard_no.nil? ? false : true
+  = f.input :ucard_no, readonly: @user.ucard_no.nil? unless admin_signed_in? ? false : true
   = f.input :forename, autofocus: true
   = f.input :surname
   = f.input :email

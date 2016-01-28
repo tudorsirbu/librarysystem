@@ -51,7 +51,7 @@ class Item < ActiveRecord::Base
   end
 
   def to_label
-    "#{self.barcode || 'Missing barcode'} - #{self.title || 'Missing title'}"
+    "#{self.title || 'Missing title'}"
   end
 
   def return(user)

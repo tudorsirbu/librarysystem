@@ -70,9 +70,9 @@ class LoansController < ApplicationController
   end
 
   def send_loan_reminders_due_today
-    puts "hi"
     loans = Loan.where(returned_on:nil)
     loans.each do |loan|
+      sleep(30)
       time = (loan.due_date - Time.zone.now)/3600
       if time <= 24 && time >= 0
         UserMailer.loan_expires_soon(loan).deliver_now

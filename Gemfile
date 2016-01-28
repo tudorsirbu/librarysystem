@@ -40,6 +40,7 @@ gem 'select2-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem "letter_opener"
   gem 'byebug'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
@@ -64,4 +65,3 @@ gem 'isbndb', '~> 2.0.0'
 gem 'googlebooks', '~> 0.0.9'
 gem 'rufus-scheduler'
 gem 'config'
-gem "letter_opener"

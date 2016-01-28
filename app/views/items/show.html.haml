@@ -30,6 +30,9 @@
     %p
       %strong Copies:
       = @item.copies
+    -if admin_signed_in?
+      %p
+        = link_to 'Edit', edit_item_path(@item), { :class=>"btn btn-success btn-sm" }
 -if @loans.size !=0
   .panel.panel-default.pull-left
     .panel-heading

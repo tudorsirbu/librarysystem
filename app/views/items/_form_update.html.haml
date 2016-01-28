@@ -12,7 +12,7 @@
     = f.input :category_id, collection: Category.all, label: "Category: ",:selected => @item.category_id
     = f.input :publisher
     = f.input :year
-    = f.input :barcode, disabled:true
+    = f.input :barcode, disabled:false unless admin_signed_in? ? false:true
     = f.input :location_id, collection: Location.all, label: "Location: ",:selected => @item.location_id
     = f.input :copies
   .actions

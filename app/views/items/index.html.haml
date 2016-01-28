@@ -54,7 +54,10 @@
             include_blank: true
       = f.input :location_search, collection: Location.all.map {|v| v.to_label}, label: "Location: ", required: false,
             include_blank: true
-      = f.submit "Search",class: "btn btn-info search"
+      = f.submit "Search",class: "btn btn-info search pull-right"
+    - if admin_signed_in?
+      = link_to 'New Item', new_item_path, { :class=>"btn btn-success btn-lg pull-left" }
+      = link_to 'Bulk Import', new_bulk_items_path, { :class=> "btn btn-success btn-lg pull-left" }
     - @items.group("barcode", "items.id").each do |item|
       %tr
         %td= item.title

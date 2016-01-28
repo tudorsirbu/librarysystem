@@ -15,6 +15,9 @@
     %p
       %strong Job title:
       = @user.job_title
+    -if admin_signed_in?
+      %p
+        = link_to 'Edit', edit_user_path(@user), { :class=>"btn btn-success btn-sm" }
 - if @loans.size !=0
   .panel.panel-default.pull-left
     .panel-heading

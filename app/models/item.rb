@@ -51,15 +51,7 @@ class Item < ActiveRecord::Base
   end
 
   def to_label
-    if self.category_id
-      if self.category.name
-        "#{self.barcode || 'Missing barcode'} - #{self.title || 'Missing title'} - #{self.category.name}"
-      else
-        "#{self.barcode || 'Missing barcode'} - #{self.title || 'Missing title'} - Missing category name"
-      end
-    else
-      "#{self.barcode || 'Missing barcode'} - #{self.title || 'Missing title'}"
-    end
+    "#{self.barcode || 'Missing barcode'} - #{self.title || 'Missing title'}"
   end
 
   def return(user)

@@ -64,3 +64,4 @@ gem 'isbndb', '~> 2.0.0'
 gem 'googlebooks', '~> 0.0.9'
 gem 'rufus-scheduler'
 gem 'config'
+gem "letter_opener"

@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/olegantonyan/initializer_helpers.git
+  revision: caf3301bd487a8b577af7ee72714b14b25166c18
+  specs:
+    initializer_helpers (0.1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -244,6 +250,7 @@ DEPENDENCIES
   gritter
   haml-rails
   httparty
+  initializer_helpers!
   isbndb (~> 2.0.0)
   jbuilder (~> 2.0)
   jquery-rails

@@ -10,7 +10,7 @@ class ScheduleManager
       loans_controller.send_loan_reminders_due_today
     end
     $scheduler.cron '0-59 * * * 1-5 Europe/London' do
-      puts "RAN CRON JOB!!!!!!!__________________________________"
+      Rails.logger.info "RAN CRON JOB------------------------------------"
     end
   end
 end

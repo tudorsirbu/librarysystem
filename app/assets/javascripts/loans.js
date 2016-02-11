@@ -24,6 +24,7 @@ $(function() {
 
 
 $(document).on('ajax:success',"#new_loan", function(xhr, data, response) {
+    console.log(data);
     if (!data.error){
         $( "select" ).change(function() {
             var id = $(this).data("id");
@@ -45,7 +46,7 @@ $(document).on('ajax:success',"#new_loan", function(xhr, data, response) {
         return $.gritter.add({
             image: '/assets/error.png',
             title: 'Notification',
-            text: 'Loan could not be created!',
+            text: data.error,
             class_name: 'gritter-info gritter-center'
         });
 

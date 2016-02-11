@@ -4,7 +4,6 @@ class SettingsController < ApplicationController
   after_action :save_settings
 
   def index
-    puts @settings.to_s + "!!!!!!!!"
   end
 
   def save
@@ -22,11 +21,10 @@ class SettingsController < ApplicationController
   end
 
   def save_settings
-    puts params.to_s
     if params.has_key?'/settings/save'
-      cookies[:location] = params['/settings/save'][:location]
+      location = params['/settings/save'][:location]
+      cookies[:location] = location
     end
-    puts cookies[:location].to_s
   end
 
 end
